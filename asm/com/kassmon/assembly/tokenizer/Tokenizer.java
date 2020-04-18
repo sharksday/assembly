@@ -39,6 +39,9 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		commands.add(new Jlz());
 		commands.add(new Jnz());
 		
+		commands.add(new Jsr());
+		commands.add(new Rsr());
+		
 		for (Command command : commands) {
 			super.addPattern(Pattern.compile("^(" + command.getPattern() + ")"), "command");
 		}
