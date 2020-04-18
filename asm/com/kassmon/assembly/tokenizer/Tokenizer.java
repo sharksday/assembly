@@ -3,7 +3,10 @@ package com.kassmon.assembly.tokenizer;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import com.kassmon.assembly.program.Program;
+import com.kassmon.assembly.program.ProgramLine;
 import com.kassmon.assembly.program.commands.*;
+import com.kassmon.library.tokenizers.Token;
 
 public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 	
@@ -30,7 +33,13 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		commands.add(new Rpc());
 		commands.add(new Wpc());
 		
-		for (Command command: commands) {
+		commands.add(new Jmp());
+		commands.add(new Jez());
+		commands.add(new Jgz());
+		commands.add(new Jlz());
+		commands.add(new Jnz());
+		
+		for (Command command : commands) {
 			super.addPattern(Pattern.compile("^(" + command.getPattern() + ")"), "command");
 		}
 		
@@ -43,10 +52,29 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		super.addPattern(Pattern.compile("^(![a-zA-Z]+)"), "label");
 		super.addPattern(Pattern.compile("^([a-zA-Z]+)"), "label");
 		
-		//super.addPattern(Pattern.compile("^([])"), "");
+		// super.addPattern(Pattern.compile("^([])"), "");
 		
 	}
-
 	
+	public Program getProgram() {
+		Program program = new Program();
+		while (super.hasNextToken()) {
+			Token t = super.getNextToken();
+			if (t.getType().equals("null")) {
+				return null;
+			} else if (t.getType().equals("command")) {
+				for (Command command : commands) {
+					if (t.getToken().equals(command.getPattern())) {
+						program.addProgramLine(new ProgramLine(command.parse(this)));
+					}
+				}
+			} else if (t.getType().equals("label")) {
+				program.addProgramLine(new ProgramLine(t.getToken()));
+			} else {
+				System.out.println("token no id");
+			}
+		}
+		return program;
+	}
 	
 }

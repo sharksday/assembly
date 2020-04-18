@@ -30,7 +30,7 @@ private String path = "com.kassmon.assembly.program.commands.Mul";
 	}
 	
 	public Mod() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

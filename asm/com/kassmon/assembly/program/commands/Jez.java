@@ -4,6 +4,7 @@ import static com.kassmon.library.log.Log.newLogEntry;
 
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
+import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.Tokenizer;
 import com.kassmon.library.log.EntryType;
 
@@ -29,9 +30,22 @@ public class Jez extends Command {
 		this.a1 = a1;
 	}
 	
+	public Jez() {
+		
+	}
+	
 	@Override
 	public void run(RunTime runtime) {
-		
+		if (runtime.getAcc() == 0) {
+			Program program = runtime.getProgram();
+			for (int i = 0; i < program.getProgramLength(); i++) {
+				if (!program.getProgramLine(i).isCommand()) {
+					if (program.getProgramLine(i).getLabel().equals(a1.getValue())) {
+						runtime.setPc(i);
+					}
+				}
+			}
+		}
 	}
 
 }
