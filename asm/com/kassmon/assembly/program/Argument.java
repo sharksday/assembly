@@ -2,27 +2,23 @@ package com.kassmon.assembly.program;
 
 public class Argument {
 	
-	private String name;
 	private boolean isNumber;
+	private boolean isLabel;
 	private String value;
 	
-	public Argument (String name ,boolean isNumber, String value) {
-		this.name = name;
-		this.isNumber = isNumber;
-		this.value = value;
-	}
 	
-	public Argument (boolean isNumber, String value) {
+	public Argument (boolean isNumber, boolean isLabel, String value) {
 		this.isNumber = isNumber;
+		this.isLabel = isLabel;
 		this.value = value;
-	}
-	
-	public String getName() {
-		return name;
 	}
 	
 	public boolean isNumber() {
 		return isNumber;
+	}
+	
+	public boolean isLabel() {
+		return isLabel;
 	}
 	
 	public String getValue() {
