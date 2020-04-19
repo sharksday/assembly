@@ -93,4 +93,13 @@ public class RunTime {
 		return this.stack.pop();
 	}
 	
+	private void runCommand(int pc) {
+		if (program.getProgramLine(pc).isCommand()) {
+			program.getProgramLine(pc).getCommand().run(this);
+		}else {
+			
+		}
+		pc++;
+	}
+	
 }
