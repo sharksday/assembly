@@ -96,10 +96,27 @@ public class RunTime {
 	private void runCommand(int pc) {
 		if (program.getProgramLine(pc).isCommand()) {
 			program.getProgramLine(pc).getCommand().run(this);
-		}else {
-			
 		}
-		pc++;
+		this.pc++;
 	}
+	
+	public void test() {
+		printMem();
+		while (this.pc < program.getProgramLength()) {
+			runCommand(this.pc);
+			printMem();
+		}
+	}
+	
+	public void printMem() {
+		System.out.println(acc + " " + pc);
+		for (Integer i: a) {
+			System.out.print(i + " ");
+		}
+		System.out.println();
+		System.out.println(adr + " " + portA + " " + portB);
+	} 
+	
+	
 	
 }

@@ -45,6 +45,8 @@ public class Sub extends Command {
 			}else if (a1.getValue().contains("a")) {
 				if (runtime.getALength() > Integer.parseInt(a1.getValue().substring(1))) {
 					runtime.setAcc(runtime.getAcc() - runtime.getA(Integer.parseInt(a1.getValue())));
+				}else {
+					newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
 				}
 			}
 		}

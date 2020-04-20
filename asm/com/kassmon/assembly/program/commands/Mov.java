@@ -15,6 +15,10 @@ public class Mov extends Command {
 		Argument a1 = null, a2 = null;
 		Argument temp = super.getArg(t);
 		if (!temp.isLabel()) {
+			if (!temp.isNumber() & temp.getValue().equals("pc")) {
+				newLogEntry(EntryType.ERROR, path, "not a valid argument");
+				return null;
+			}
 			a1 = temp;
 		}else {
 			newLogEntry(EntryType.ERROR, path, "not a valid argument");
@@ -52,7 +56,7 @@ public class Mov extends Command {
 
 	@Override
 	public void run(RunTime runtime) {
-		if (a2.isNumber()) {
+		if (a1.isNumber()) {
 			if (a2.getValue().equals("acc")) {
 				runtime.setAcc(Integer.parseInt(a1.getValue()));
 			}else if (a2.getValue().equals("adr")) {
@@ -68,61 +72,47 @@ public class Mov extends Command {
 			}
 		}else {
 			if (a2.getValue().equals("acc")) {
-				if (a1.getValue().equals("null")) {
-					runtime.setAcc(-1);
-				}else if (a1.getValue().equals("acc")) {
-					newLogEntry(EntryType.ERROR, path, "RunTime Error: destination error");
+				if (a1.getValue().equals("acc")) {
+					runtime.setAcc(runtime.getAcc());
 				}else if (a1.getValue().equals("adr")) {
 					runtime.setAcc(runtime.getAdr());
 				}else if (a1.getValue().contains("a")) {
-					if (runtime.getALength() > Integer.parseInt(a2.getValue().substring(1))) {
+					if (runtime.getALength() > Integer.parseInt(a1.getValue().substring(1))) {
 						runtime.setAcc(runtime.getA(Integer.parseInt(a1.getValue().substring(1))));
 					}else {
 						newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
 					}
-				}else {
-					newLogEntry(EntryType.ERROR, path, "RunTime Error: origin error");
 				}
 			}else if (a2.getValue().equals("adr")) {
-				if (a1.getValue().equals("null")) {
-					runtime.setAdr(-1);
-				}else if (a1.getValue().equals("acc")) {
+				if (a1.getValue().equals("acc")) {
 					runtime.setAdr(runtime.getAcc());
 				}else if (a1.getValue().equals("adr")) {
-					newLogEntry(EntryType.ERROR, path, "RunTime Error: destination error");
+					runtime.setAdr(runtime.getAdr());
 				}else if (a1.getValue().contains("a")) {
 					if (runtime.getALength() > Integer.parseInt(a2.getValue().substring(1))) {
 						runtime.setAdr(runtime.getA(Integer.parseInt(a1.getValue().substring(1))));
 					}else {
 						newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
 					}
-				}else {
-					newLogEntry(EntryType.ERROR, path, "RunTime Error: origin error");
 				}
 			}else if (a2.getValue().contains("a")) {
 				if (runtime.getALength() > Integer.parseInt(a2.getValue().substring(1))) {
-					if (a1.getValue().equals("null")) {
-						runtime.setA(Integer.parseInt(a2.getValue().substring(1)), -1);
-					}else if (a1.getValue().equals("acc")) {
-						runtime.setA(Integer.parseInt(a2.getValue().substring(1)), runtime.getAcc());
+					if (a1.getValue().equals("acc")) {
+						runtime.setA(runtime.getA(Integer.parseInt(a2.getValue().substring(1))), runtime.getAcc());
 					}else if (a1.getValue().equals("adr")) {
-						runtime.setA(Integer.parseInt(a2.getValue().substring(1)), runtime.getAdr());
+						runtime.setA(runtime.getA(Integer.parseInt(a2.getValue().substring(1))), runtime.getAdr());
 					}else if (a1.getValue().contains("a")) {
-						if (runtime.getALength() > Integer.parseInt(a2.getValue().substring(1))) {
-							if (a1.equals(a2)) {
-								newLogEntry(EntryType.ERROR, path, "RunTime Error: destination error");
-							}else {
-								runtime.setA(Integer.parseInt(a2.getValue().substring(1)), runtime.getA(Integer.parseInt(a1.getValue().substring(1))));
-							}
+						if (runtime.getALength() > Integer.parseInt(a1.getValue().substring(1))) {
+							runtime.setA(runtime.getA(Integer.parseInt(a2.getValue().substring(1))), runtime.getA(Integer.parseInt(a1.getValue().substring(1))));
 						}else {
 							newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
 						}
-					}else {
-						newLogEntry(EntryType.ERROR, path, "RunTime Error: destination error");
 					}
 				}else {
 					newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
 				}
+			}else {
+				newLogEntry(EntryType.ERROR, path, "RunTime Error: destination error");
 			}
 		}
 	}
