@@ -14,14 +14,14 @@ public class Jmp extends Command {
 	@Override
 	public Command parse(Tokenizer t) {
 		Argument a1 = super.getArg(t);
-		if (!a1.isLabel()) return new Jmp(a1);
+		if (a1.isLabel()) return new Jmp(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");
 		return null;
 	}
 
 	@Override
 	public String getPattern() {
-		 return "Jmp";
+		 return "jmp";
 	}
 	
 	private Argument a1;

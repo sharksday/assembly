@@ -72,7 +72,7 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 					}
 				}
 			} else if (t.getType().equals("label")) {
-				program.addProgramLine(new ProgramLine(t.getToken()));
+				program.addProgramLine(new ProgramLine(t.getToken().substring(1)));
 			} else {
 				System.out.println("token no id");
 			}

@@ -14,7 +14,7 @@ public class Jgz extends Command {
 	@Override
 	public Command parse(Tokenizer t) {
 		Argument a1 = super.getArg(t);
-		if (!a1.isLabel())
+		if (a1.isLabel())
 			return new Jgz(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");
 		return null;

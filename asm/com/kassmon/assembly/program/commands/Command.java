@@ -15,9 +15,11 @@ public abstract class Command {
 			return new Argument (true, false, token.getToken());
 		}else if (token.getType().equals("label")) {
 			return new Argument (false, true, token.getToken());
+		}else if (token.getType().equals("")) {
+			return null;
 		}else {
 			return null;
-		}
+		}	
 	}
 	
 	public abstract Command parse(Tokenizer t);
