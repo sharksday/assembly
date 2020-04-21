@@ -1,4 +1,4 @@
-package com.kassmon.assembly.program.commands;
+package com.kassmon.assembly.commands;
 
 import static com.kassmon.library.log.Log.newLogEntry;
 
@@ -8,44 +8,43 @@ import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.Tokenizer;
 import com.kassmon.library.log.EntryType;
 
-public class Jnz extends Command {
-	private String path = "com.kassmon.assembly.program.commands.Jnz";
+public class Jsr extends Command {
+	private String path = "com.kassmon.assembly.program.commands.Jsr";
 	
 	@Override
 	public Command parse(Tokenizer t) {
 		Argument a1 = super.getArg(t);
-		if (a1.isLabel()) return new Jnz(a1);
+		if (a1.isLabel()) return new Jsr(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");
 		return null;
 	}
-
+	
 	@Override
 	public String getPattern() {
-		 return "Jnz";
+		return "jsr";
 	}
 	
 	private Argument a1;
 	
-	public Jnz (Argument a1) {
+	public Jsr(Argument a1) {
 		this.a1 = a1;
 	}
 	
-	public Jnz() {
+	public Jsr() {
 		
 	}
 	
 	@Override
 	public void run(RunTime runtime) {
-		if (runtime.getAcc() != 0) {
-			Program program = runtime.getProgram();
-			for (int i = 0; i < program.getProgramLength(); i++) {
-				if (!program.getProgramLine(i).isCommand()) {
-					if (program.getProgramLine(i).getLabel().equals(a1.getValue())) {
-						runtime.setPc(i);
-					}
+		runtime.pushToStack(runtime.getPc());
+		Program program = runtime.getProgram();
+		for (int i = 0; i < program.getProgramLength(); i++) {
+			if (!program.getProgramLine(i).isCommand()) {
+				if (program.getProgramLine(i).getLabel().equals(a1.getValue())) {
+					runtime.setPc(i);
 				}
 			}
 		}
 	}
-
+	
 }

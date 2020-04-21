@@ -1,23 +1,23 @@
-package com.kassmon.assembly.program.commands;
+package com.kassmon.assembly.commands;
 
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.tokenizer.Tokenizer;
 
-public class Lda extends Command {
+public class Ldb extends Command {
 
 	@Override
 	public Command parse(Tokenizer t) {
-		return new Lda();
+		return new Ldb();
 	}
 
 	@Override
 	public String getPattern() {
-		return "lda";
+		return "ldb";
 	}
 
 	@Override
 	public void run(RunTime runtime) {
-		runtime.setPortA(runtime.getAcc());
+		runtime.setPortB(runtime.getAcc());
 	}
 
 }

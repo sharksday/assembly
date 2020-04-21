@@ -1,4 +1,4 @@
-package com.kassmon.assembly.program.commands;
+package com.kassmon.assembly.commands;
 
 import static com.kassmon.library.log.Log.newLogEntry;
 

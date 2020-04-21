@@ -1,4 +1,4 @@
-package com.kassmon.assembly.program.commands;
+package com.kassmon.assembly.commands;
 
 import com.kassmon.assembly.tokenizer.Tokenizer;
 import com.kassmon.library.tokenizers.Token;

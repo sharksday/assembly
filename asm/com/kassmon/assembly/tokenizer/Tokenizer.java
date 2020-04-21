@@ -3,9 +3,9 @@ package com.kassmon.assembly.tokenizer;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
+import com.kassmon.assembly.commands.*;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.program.ProgramLine;
-import com.kassmon.assembly.program.commands.*;
 import com.kassmon.library.tokenizers.Token;
 
 public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {

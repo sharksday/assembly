@@ -1,23 +1,23 @@
-package com.kassmon.assembly.program.commands;
+package com.kassmon.assembly.commands;
 
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.tokenizer.Tokenizer;
 
-public class Nop extends Command {
+public class Lda extends Command {
 
 	@Override
 	public Command parse(Tokenizer t) {
-		return new Nop();
+		return new Lda();
 	}
 
 	@Override
 	public String getPattern() {
-		return "nop";
+		return "lda";
 	}
 
 	@Override
 	public void run(RunTime runtime) {
-		
+		runtime.setPortA(runtime.getAcc());
 	}
 
 }

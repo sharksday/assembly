@@ -1,6 +1,6 @@
 package com.kassmon.assembly.program;
 
-import com.kassmon.assembly.program.commands.Command;
+import com.kassmon.assembly.commands.Command;
 
 public class ProgramLine {
 	

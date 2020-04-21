@@ -1,23 +1,23 @@
-package com.kassmon.assembly.program.commands;
+package com.kassmon.assembly.commands;
 
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.tokenizer.Tokenizer;
 
-public class Wpc extends Command {
+public class Rpc extends Command {
 
 	@Override
 	public Command parse(Tokenizer t) {
-		return new Wpc();
+		return new Rpc();
 	}
 
 	@Override
 	public String getPattern() {
-		return "wpc";
+		return "rpc";
 	}
 
 	@Override
 	public void run(RunTime runtime) {
-		runtime.setPc(runtime.getAcc());
+		runtime.setAcc(runtime.getPc());
 	}
 
 }
