@@ -2,22 +2,25 @@ package com.kassmon.assembly.logic;
 
 import com.kassmon.library.log.EntryType;
 import static com.kassmon.library.log.Log.newLogEntry;
+
+import java.util.ArrayList;
 import java.util.Stack;
+
+import com.kassmon.assembly.external.BusItem;
 import com.kassmon.assembly.program.Program;
 
 @SuppressWarnings("unused")
 public class RunTime {
 	private final String path = "com.kassmon.projects.comp.logic.RunTime";
 	private Program program;
-	// mem
+	// memory
 	private int acc;
 	private int a[];
 	private int pc;
 	private Stack<Integer> stack;
-	// output ports
+	//External items
 	private int adr;
-	private int portA;
-	private int portB;
+	private ArrayList<BusItem> bus;
 	// flags
 	
 	public RunTime() {
@@ -65,22 +68,6 @@ public class RunTime {
 		this.adr = adr;
 	}
 	
-	public int getPortA() {
-		return portA;
-	}
-	
-	public void setPortA(int portA) {
-		this.portA = portA;
-	}
-	
-	public int getPortB() {
-		return portB;
-	}
-	
-	public void setPortB(int portB) {
-		this.portB = portB;
-	}
-	
 	public int getALength() {
 		return a.length;
 	}
@@ -100,11 +87,15 @@ public class RunTime {
 		this.pc++;
 	}
 	
-	public void test() {
-		printMem();
-		while (this.pc < program.getProgramLength()) {
-			runCommand(this.pc);
-			printMem();
+	public void addBussItem(BusItem item) {
+		this.bus.add(item);
+	}
+	
+	public void push(int value) {
+		if (this.adr < this.bus.size()) {
+			bus.get(this.adr).push(value);
+		}else {
+			newLogEntry(EntryType.WARNING, path, ("No adr at value" + String.valueOf(this.adr)));
 		}
 	}
 	
@@ -114,7 +105,7 @@ public class RunTime {
 			System.out.print(i + " ");
 		}
 		System.out.println();
-		System.out.println(adr + " " + portA + " " + portB);
+		System.out.println(adr);
 	} 
 	
 	

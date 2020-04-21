@@ -1,0 +1,44 @@
+memory
+acc	"accumulate"
+adr	"address"
+a00	"register 0"
+a01	"register 1"
+a02	"register 2"
+a03	"register 3"
+a04	"register 4"
+a05	"register 5"
+a06	"register 6"
+a07	"register 7"
+a08	"register 8"
+a09	"register 9"
+a10	"register 10"
+a11	"register 11"
+a12	"register 12"
+a13	"register 13"
+a14	"register 14"
+a15	"register 15"
+pc 	"program counter"
+
+
+commands
+nop
+mov (value or memory adr) (memory adr)
+
+add (value or memory adr)
+sub (value or memory adr)
+mul (value or memory adr)
+div (value or memory adr)
+mod (value or memory adr)
+
+jmp (label)
+jez (label)
+jlz (label)
+jgz (label)
+jnz (label)
+
+jsr (label)
+rsr
+
+wpc
+rpc
+

@@ -25,11 +25,6 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		commands.add(new Div());
 		commands.add(new Mod());
 		
-		commands.add(new Lda());
-		commands.add(new Sva());
-		commands.add(new Ldb());
-		commands.add(new Svb());
-		
 		commands.add(new Rpc());
 		commands.add(new Wpc());
 		
@@ -41,6 +36,8 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		
 		commands.add(new Jsr());
 		commands.add(new Rsr());
+		
+		
 		
 		for (Command command : commands) {
 			super.addPattern(Pattern.compile("^(" + command.getPattern() + ")"), "command");

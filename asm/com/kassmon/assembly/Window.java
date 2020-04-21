@@ -24,7 +24,17 @@ public class Window extends RunTime {
 	private JLabel memLabels[];
 	private JLabel memReadouts[];
 	
-	private JLabel verson;
+	public Window() {
+		this.frame = new JFrame();
+		//menu items
+		
+		//Programmer and debugger items
+		this.memLabels = new JLabel[21];
+		this.memReadouts = new JLabel[21];
+		
+		 
+		
+	}
 	
 	
 	
