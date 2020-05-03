@@ -1,0 +1,5 @@
+mov 10 acc
+!loop
+add 1
+jgz loop
+add 10

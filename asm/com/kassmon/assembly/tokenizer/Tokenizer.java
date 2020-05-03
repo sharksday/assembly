@@ -6,14 +6,20 @@ import java.util.regex.Pattern;
 import com.kassmon.assembly.commands.*;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.program.ProgramLine;
+import com.kassmon.library.log.Log;
+import com.kassmon.library.log.LogEntry;
+import com.kassmon.library.log.NewLogEntryEvent;
 import com.kassmon.library.tokenizers.Token;
 
 public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
-	
+	private boolean error = false;
 	private ArrayList<Command> commands;
 	
 	public Tokenizer() {
-		
+		Log.addEventListener(new NewLogEntryEvent() {
+			@Override public void newError(LogEntry logEntry) {
+				error = true;
+			}});
 		commands = new ArrayList<>();
 		
 		commands.add(new Nop());
@@ -28,14 +34,14 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		commands.add(new Rpc());
 		commands.add(new Wpc());
 		
-		commands.add(new Jmp());
-		commands.add(new Jez());
+		//commands.add(new Jmp());
+		//commands.add(new Jez());
 		commands.add(new Jgz());
-		commands.add(new Jlz());
-		commands.add(new Jnz());
+		//commands.add(new Jlz());
+		//commands.add(new Jnz());
 		
-		commands.add(new Jsr());
-		commands.add(new Rsr());
+		//commands.add(new Jsr());
+		//commands.add(new Rsr());
 		
 		
 		
@@ -59,9 +65,10 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 	public Program getProgram() {
 		Program program = new Program();
 		while (super.hasNextToken()) {
+			if (error) return new Program();
 			Token t = super.getNextToken();
 			if (t.getType().equals("null")) {
-				return null;
+				return new Program();
 			} else if (t.getType().equals("command")) {
 				for (Command command : commands) {
 					if (t.getToken().equals(command.getPattern())) {

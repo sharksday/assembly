@@ -1,4 +1,4 @@
-memory
+//memory addresses
 acc	"accumulate"
 adr	"address"
 a00	"register 0"
@@ -19,16 +19,15 @@ a14	"register 14"
 a15	"register 15"
 pc 	"program counter"
 
-
-commands
+//commands
 nop
-mov (value or memory adr) (memory adr)
+mov (value or memory address) (memory address)
 
-add (value or memory adr)
-sub (value or memory adr)
-mul (value or memory adr)
-div (value or memory adr)
-mod (value or memory adr)
+add (value or memory address)
+sub (value or memory address)
+mul (value or memory address)
+div (value or memory address)
+mod (value or memory address)
 
 jmp (label)
 jez (label)
@@ -42,3 +41,4 @@ rsr
 wpc
 rpc
 
+//ext controls 

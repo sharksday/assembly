@@ -13,9 +13,9 @@ public class Add extends Command {
 	@Override
 	public Command parse(Tokenizer t) {
 		Argument a1 = super.getArg(t);
-		if (!a1.isLabel()) return new Add(a1);
+		if (a1 != null) if (!a1.isLabel()) return new Add(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");
-		return null;
+		return new Nop();
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class Add extends Command {
 	}
 	
 	public Add() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

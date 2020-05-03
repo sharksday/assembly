@@ -14,28 +14,39 @@ public class Mov extends Command {
 	public Command parse(Tokenizer t) {
 		Argument a1 = null, a2 = null;
 		Argument temp = super.getArg(t);
-		if (!temp.isLabel()) {
-			if (!temp.isNumber() & temp.getValue().equals("pc")) {
-				newLogEntry(EntryType.ERROR, path, "not a valid argument");
-				return null;
-			}
-			a1 = temp;
-		}else {
-			newLogEntry(EntryType.ERROR, path, "not a valid argument");
-		}
-		temp = super.getArg(t);
-		if (!temp.isLabel()) {
-			if (!temp.isNumber()) {
-				a2 = temp;
+		if (temp != null) {
+			if (!temp.isLabel()) {
+				if (!temp.isNumber() & temp.getValue().equals("pc")) {
+					newLogEntry(EntryType.ERROR, path, "not a valid argument");
+					return new Nop();
+				}
+				a1 = temp;
 			}else {
 				newLogEntry(EntryType.ERROR, path, "not a valid argument");
-				return null;
+				return new Nop();
+			}
+			temp = super.getArg(t);
+			if (temp != null) {
+				if (!temp.isLabel()) {
+					if (!temp.isNumber()) {
+						a2 = temp;
+					}else {
+						newLogEntry(EntryType.ERROR, path, "not a valid argument");
+						return new Nop();
+					}
+				}else {
+					newLogEntry(EntryType.ERROR, path, "not a valid argument");
+					return new Nop();
+				}
+				return new Mov(a1, a2);
+			}else {
+				newLogEntry(EntryType.ERROR, path, "not a valid argument");
+				return new Nop();
 			}
 		}else {
 			newLogEntry(EntryType.ERROR, path, "not a valid argument");
-			return null;
+			return new Nop();
 		}
-		return new Mov(a1, a2);
 	}
 	
 	@Override
@@ -98,7 +109,7 @@ public class Mov extends Command {
 			}else if (a2.getValue().contains("a")) {
 				if (runtime.getALength() > Integer.parseInt(a2.getValue().substring(1))) {
 					if (a1.getValue().equals("acc")) {
-						runtime.setA(runtime.getA(Integer.parseInt(a2.getValue().substring(1))), runtime.getAcc());
+						runtime.setA(Integer.parseInt(a2.getValue().substring(1)), runtime.getAcc());
 					}else if (a1.getValue().equals("adr")) {
 						runtime.setA(runtime.getA(Integer.parseInt(a2.getValue().substring(1))), runtime.getAdr());
 					}else if (a1.getValue().contains("a")) {

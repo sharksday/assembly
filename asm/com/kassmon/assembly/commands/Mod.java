@@ -8,19 +8,19 @@ import com.kassmon.assembly.tokenizer.Tokenizer;
 import com.kassmon.library.log.EntryType;
 
 public class Mod extends Command{
-private String path = "com.kassmon.assembly.program.commands.Mul";
+private String path = "com.kassmon.assembly.program.commands.Mod";
 	
 	@Override
 	public Command parse(Tokenizer t) {
 		Argument a1 = super.getArg(t);
-		if (!a1.isLabel()) return new Mul(a1);
+		if (a1 != null) if (!a1.isLabel()) return new Mul(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");
-		return null;
+		return new Nop();
 	}
 
 	@Override
 	public String getPattern() {
-		 return "mul";
+		 return "mod";
 	}
 	
 	private Argument a1;

@@ -6,7 +6,6 @@ import static com.kassmon.library.log.Log.newLogEntry;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.kassmon.assembly.external.BusItem;
 import com.kassmon.assembly.program.Program;
 
 @SuppressWarnings("unused")
@@ -20,7 +19,7 @@ public class RunTime {
 	private Stack<Integer> stack;
 	//External items
 	private int adr;
-	private ArrayList<BusItem> bus;
+	
 	// flags
 	
 	public RunTime() {
@@ -80,34 +79,20 @@ public class RunTime {
 		return this.stack.pop();
 	}
 	
-	private void runCommand(int pc) {
+	public void runCommand(int pc) {
 		if (program.getProgramLine(pc).isCommand()) {
 			program.getProgramLine(pc).getCommand().run(this);
 		}
 		this.pc++;
 	}
 	
-	public void addBussItem(BusItem item) {
-		this.bus.add(item);
-	}
-	
-	public void push(int value) {
-		if (this.adr < this.bus.size()) {
-			bus.get(this.adr).push(value);
-		}else {
-			newLogEntry(EntryType.WARNING, path, ("No adr at value" + String.valueOf(this.adr)));
-		}
-	}
-	
 	public void printMem() {
-		System.out.println(acc + " " + pc);
+		System.out.println(acc + " " + (pc - 1));
 		for (Integer i: a) {
 			System.out.print(i + " ");
 		}
 		System.out.println();
 		System.out.println(adr);
 	} 
-	
-	
 	
 }

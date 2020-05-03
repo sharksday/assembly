@@ -14,9 +14,9 @@ public class Jez extends Command {
 	@Override
 	public Command parse(Tokenizer t) {
 		Argument a1 = super.getArg(t);
-		if (a1.isLabel()) return new Jez(a1);
+		if (a1 != null) if (a1.isLabel()) return new Jez(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");
-		return null;
+		return new Nop();
 	}
 
 	@Override
