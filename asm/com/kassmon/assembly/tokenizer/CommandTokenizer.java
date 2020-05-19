@@ -11,11 +11,11 @@ import com.kassmon.library.log.LogEntry;
 import com.kassmon.library.log.NewLogEntryEvent;
 import com.kassmon.library.tokenizers.Token;
 
-public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
+public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 	private boolean error = false;
 	private ArrayList<Command> commands;
 	
-	public Tokenizer() {
+	public CommandTokenizer() {
 		Log.addEventListener(new NewLogEntryEvent() {
 			@Override public void newError(LogEntry logEntry) {
 				error = true;
@@ -34,14 +34,18 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		commands.add(new Rpc());
 		commands.add(new Wpc());
 		
-		//commands.add(new Jmp());
-		//commands.add(new Jez());
+		commands.add(new Jmp());
+		commands.add(new Jez());
 		commands.add(new Jgz());
-		//commands.add(new Jlz());
-		//commands.add(new Jnz());
+		commands.add(new Jlz());
+		commands.add(new Jnz());
 		
-		//commands.add(new Jsr());
-		//commands.add(new Rsr());
+		commands.add(new Jsr());
+		commands.add(new Rsr());
+		
+		commands.add(new Psh());
+		commands.add(new Pul());
+		commands.add(new Clk());
 		
 		
 		
@@ -54,6 +58,10 @@ public class Tokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		super.addPattern(Pattern.compile("^(pc)"), "mem");
 		super.addPattern(Pattern.compile("^(null)"), "mem");
 		super.addPattern(Pattern.compile("^(a[0-9][0-9])"), "mem");
+		super.addPattern(Pattern.compile("^(0x[0-9abcdef][0-9abcdef])"), "hex");
+		super.addPattern(Pattern.compile("^(0x[0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef])"), "hex");
+		super.addPattern(Pattern.compile("^(0x[0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef][0-9abcdef])"), "hex");
+		super.addPattern(Pattern.compile("^(-[a-zA-Z0-9])"), "char");
 		super.addPattern(Pattern.compile("^([0-9]+)"), "value");
 		super.addPattern(Pattern.compile("^(![a-zA-Z]+)"), "label");
 		super.addPattern(Pattern.compile("^([a-zA-Z]+)"), "label");

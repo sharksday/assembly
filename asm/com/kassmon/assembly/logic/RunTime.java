@@ -1,16 +1,13 @@
 package com.kassmon.assembly.logic;
 
-import com.kassmon.library.log.EntryType;
-import static com.kassmon.library.log.Log.newLogEntry;
-
 import java.util.ArrayList;
 import java.util.Stack;
 
+import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.program.Program;
 
-@SuppressWarnings("unused")
+//@SuppressWarnings("unused")
 public class RunTime {
-	private final String path = "com.kassmon.projects.comp.logic.RunTime";
 	private Program program;
 	// memory
 	private int acc;
@@ -19,12 +16,16 @@ public class RunTime {
 	private Stack<Integer> stack;
 	//External items
 	private int adr;
+	private ArrayList<ExternalBusItem> bus;
+	//flags
+	private boolean zero;
+	private boolean negative;
 	
-	// flags
 	
 	public RunTime() {
 		a = new int[16];
 		stack = new Stack<>();
+		bus = new ArrayList<>();
 	}
 	
 	public Program getProgram() {
@@ -86,13 +87,39 @@ public class RunTime {
 		this.pc++;
 	}
 	
+	public boolean isZero() {
+		return zero;
+	}
+
+	public void setZero(boolean zero) {
+		this.zero = zero;
+	}
+
+	public boolean isNegative() {
+		return negative;
+	}
+
+	public void setNegative(boolean negative) {
+		this.negative = negative;
+	}
+
 	public void printMem() {
-		System.out.println(acc + " " + (pc - 1));
+		System.out.println(acc + " " + (pc));
 		for (Integer i: a) {
 			System.out.print(i + " ");
 		}
 		System.out.println();
 		System.out.println(adr);
 	} 
+	
+	public void addBusItem(ExternalBusItem item) {
+		this.bus.add(item);
+	}
+
+	public ArrayList<ExternalBusItem> getBus() {
+		return bus;
+	}
+	
+	
 	
 }

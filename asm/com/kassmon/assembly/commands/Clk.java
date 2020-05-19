@@ -1,23 +1,26 @@
 package com.kassmon.assembly.commands;
 
+import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
-public class Rpc extends Command {
-
+public class Clk extends Command {
+	
 	@Override
 	public Command parse(CommandTokenizer t) {
-		return new Rpc();
+		return new Clk();
 	}
-
+	
 	@Override
 	public String getPattern() {
-		return "rpc";
+		return "clk";
 	}
-
+	
 	@Override
 	public void run(RunTime runtime) {
-		runtime.setAcc(runtime.getPc());
+		for (ExternalBusItem obj: runtime.getBus()) {
+			obj.clock();
+		}
 	}
-
+	
 }

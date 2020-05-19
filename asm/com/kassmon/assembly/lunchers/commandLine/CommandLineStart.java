@@ -6,8 +6,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
+import com.kassmon.assembly.externalBuss.Ram;
 import com.kassmon.assembly.logic.RunTime;
-import com.kassmon.assembly.tokenizer.Tokenizer;
+import com.kassmon.assembly.tokenizer.CommandTokenizer;
 import com.kassmon.library.log.Log;
 
 public class CommandLineStart {
@@ -15,10 +16,12 @@ public class CommandLineStart {
 	public static void main(String[] args) {
 		Log.setReport(true);
 		RunTime runtime = new RunTime();
-		Tokenizer tokenizer = new Tokenizer();
+		CommandTokenizer tokenizer = new CommandTokenizer();
 		String st = "";
 		String string = "";
 		File file = new File(args[0]);
+		
+		runtime.addBusItem(new Ram(0, 1));
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));

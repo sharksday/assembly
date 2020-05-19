@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import com.kassmon.assembly.logic.RunTime;
-import com.kassmon.assembly.tokenizer.Tokenizer;
+import com.kassmon.assembly.tokenizer.CommandTokenizer;
 import com.kassmon.library.log.Log;
 import com.kassmon.library.log.LogEntry;
 import com.kassmon.library.log.NewLogEntryEvent;
@@ -129,7 +129,7 @@ public class Window extends JFrame{
 	}
 	
 	private void build() {
-		Tokenizer t = new Tokenizer();
+		CommandTokenizer t = new CommandTokenizer();
 		t.setInput(this.input.getText());
 		this.runtime.setProgram(t.getProgram());
 	}
