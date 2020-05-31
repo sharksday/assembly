@@ -12,16 +12,6 @@ import com.kassmon.assembly.program.Argument;
 public abstract class Command {
 	private String path = "com.kassmon.assembly.program.commands.Command";
 	
-	private char charList[] = {
-			' ','a','b','c','d','e','f','g','h','i',
-			'j','k','l','m','n','o','p','q','r','s',
-			't','u','v','w','x','y','z','A','B','C',
-			'D','E','F','G','H','I','J','K','L','M',
-			'N','O','P','Q','R','S','T','U','V','W',
-			'X','Y','Z','1','2','3','4','5','6','7',
-			'8','9','0','.'
-			};
-	
 	public Argument getArg(CommandTokenizer t) {
 		Token token = t.getNextToken();
 		switch (token.getType()){
@@ -34,11 +24,8 @@ public abstract class Command {
 			case "hex":
 				return new Argument (true, false, String.valueOf(Integer.parseInt(token.getToken().substring(2), 16)));
 			case "char":
-				String charter = token.getToken().substring(1);
-				for (int i = 0; i < charList.length; i++) {
-					if (charList[i] == charter.charAt(0)) return new Argument(true, false, String.valueOf(i));
-				}
-				
+				int charter = token.getToken().substring(1).toCharArray()[0];
+				return new Argument (true, false, String.valueOf(charter));
 		}
 		return null;	
 	}
@@ -60,6 +47,16 @@ public abstract class Command {
 			}
 		}
 		return 0;
+	}
+	
+	public void setFlags(RunTime runtime) {
+		if (runtime.getAcc() == 0) {
+			runtime.setZero(true);
+			runtime.setNegative(false);
+		}else if (runtime.getAcc() < 0) {
+			runtime.setZero(false);
+			runtime.setNegative(true);
+		}
 	}
 	
 	public abstract Command parse(CommandTokenizer t);

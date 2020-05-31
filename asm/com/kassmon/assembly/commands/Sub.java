@@ -30,26 +30,13 @@ public class Sub extends Command {
 	}
 	
 	public Sub() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override
 	public void run(RunTime runtime) {
-		if (a1.isNumber()) {
-			runtime.setAcc(runtime.getAcc() - Integer.parseInt(a1.getValue()));
-		}else {
-			if (a1.getValue().equals("acc")) {
-				runtime.setAcc(0);
-			}else if (a1.getValue().equals("adr")) {
-				runtime.setAcc(runtime.getAcc() - runtime.getAdr());
-			}else if (a1.getValue().contains("a")) {
-				if (runtime.getALength() > Integer.parseInt(a1.getValue().substring(1))) {
-					runtime.setAcc(runtime.getAcc() - runtime.getA(Integer.parseInt(a1.getValue().substring(1))));
-				}else {
-					newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
-				}
-			}
-		}
+		runtime.setAcc(runtime.getAcc() - super.getValue(runtime, a1));
+		super.setFlags(runtime);
 	}
 
 }

@@ -36,7 +36,6 @@ public class Ram implements ExternalBusItem {
 	public void clock() {
 		switch (command) {
 			case 0:
-				
 				break;
 			case 1:
 				this.loc = this.data;
