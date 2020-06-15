@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
-import com.kassmon.assembly.externalBuss.Ram;
+import com.kassmon.assembly.externalBuss.*;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 import com.kassmon.library.log.Log;
@@ -22,6 +22,7 @@ public class CommandLineStart {
 		File file = new File(args[0]);
 		
 		runtime.addBusItem(new Ram(0, 1));
+		runtime.addBusItem(new TextDisplay(16,17));
 		
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(file));

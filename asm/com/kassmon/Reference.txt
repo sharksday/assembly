@@ -42,3 +42,38 @@ wpc
 rpc
 
 //ext controls 
+
+ram
+
+0	null
+1	set loc
+2	set data to loc
+3	loc loc to data
+
+textDisplay
+
+0	
+1	set column
+2	set row
+3	clear cell
+4	set cell
+5	next column
+6	previous column
+7	next row
+8	previous row
+9	shift rows up
+10	shift rows down
+11	shift column left
+12	shift column right
+13	
+14	
+15	print to console
+
+
+
+
+
+
+
+
+

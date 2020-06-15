@@ -21,33 +21,30 @@ public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 				error = true;
 			}});
 		commands = new ArrayList<>();
-		
 		commands.add(new Nop());
 		commands.add(new Mov());
-		
 		commands.add(new Add());
 		commands.add(new Sub());
 		commands.add(new Mul());
 		commands.add(new Div());
 		commands.add(new Mod());
-		
 		commands.add(new Rpc());
 		commands.add(new Wpc());
-		
 		commands.add(new Jmp());
 		commands.add(new Jez());
 		commands.add(new Jgz());
 		commands.add(new Jlz());
 		commands.add(new Jnz());
-		
 		commands.add(new Jsr());
 		commands.add(new Rsr());
-		
 		commands.add(new Psh());
 		commands.add(new Pul());
 		commands.add(new Clk());
 		
-		
+		commands.add(new Not());
+		commands.add(new Or());
+		commands.add(new And());
+		commands.add(new Xor());
 		
 		for (Command command : commands) {
 			super.addPattern(Pattern.compile("^(" + command.getPattern() + ")"), "command");
@@ -65,9 +62,7 @@ public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		super.addPattern(Pattern.compile("^([0-9]+)"), "value");
 		super.addPattern(Pattern.compile("^(![a-zA-Z]+)"), "label");
 		super.addPattern(Pattern.compile("^([a-zA-Z]+)"), "label");
-		
 		// super.addPattern(Pattern.compile("^([])"), "");
-		
 	}
 	
 	public Program getProgram() {

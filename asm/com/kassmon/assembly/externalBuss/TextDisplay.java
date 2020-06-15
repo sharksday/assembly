@@ -10,18 +10,15 @@ public class TextDisplay extends JFrame implements ExternalBusItem {
 	private int charMap[][];
 	private JLabel chars[][];
 	
+	private int columnNumber = 40, rowNumber = 20;
 	private int column = 0, row = 0;
 		
 	public TextDisplay(int commandAdr, int dataAdr) {
 		this.commandAdr = commandAdr;
 		this.dataAdr = dataAdr;
-		this.charMap = new int[40][20];
-		this.chars = new JLabel[40][20];
-		for (int i = 0; i < 40;i++) {
-			for (int i1 = 0; i1 < 20;i1++) {
-				this.chars[i][i1] = new JLabel();
-			}
-		}
+		this.charMap = new int[this.columnNumber][this.rowNumber];
+		this.chars = new JLabel[this.columnNumber][this.rowNumber];
+		
 	}
 	
 	@Override
@@ -66,17 +63,42 @@ public class TextDisplay extends JFrame implements ExternalBusItem {
 			case 4:
 				this.charMap[this.column][this.row] = this.data;
 				this.command = 0;
-				this.row = 0;
+				this.data = 0;
 				break;
 			case 5:
+				this.column++;
+				this.data = 0;
+				this.command = 0;
 				break;
 			case 6:
+				this.column--;
+				this.data = 0;
+				this.command = 0;
 				break;
 			case 7:
+				this.row++;
+				this.data = 0;
+				this.command = 0;
 				break;
 			case 8:
+				this.row--;
+				this.data = 0;
+				this.command = 0;
 				break;
 			case 9:
+				for (int i = 0; i < this.rowNumber; i++) {
+					if (i == this.rowNumber - 1) {
+						for (int x = 0; x < this.columnNumber; x++) {
+							this.charMap[x][this.columnNumber - 1] = 0;
+						}
+					}else {
+						for (int x = 0; x < this.columnNumber; x++) {
+							this.charMap[x][i] = this.charMap[x][i + 1];
+						}
+					}
+				}
+				this.data = 0;
+				this.command = 0;
 				break;
 			case 10:
 				break;
@@ -89,14 +111,47 @@ public class TextDisplay extends JFrame implements ExternalBusItem {
 			case 14:
 				break;
 			case 15:
+				this.printTextScrean();
+				break;
+			case 33:
+				super.setVisible(true);
+				break;
+			case 34:
+				super.setVisible(false);
+				break;
+			case 35:
+				this.initDisplay();
 				break;
 		}
 	}
 	
+	private void printTextScrean() {
+		System.out.println("text out");
+		for (int i = 0; i < this.columnNumber;i++) {
+			for (int i1 = 0; i1 < this.rowNumber;i1++) {
+				System.out.print(String.valueOf((char) this.charMap[i][i1]));
+			}
+			System.out.println();
+		}
+	}
+	
 	private void printScrean() {
-		for (int i = 0; i < 40;i++) {
-			for (int i1 = 0; i1 < 20;i1++) {
+		for (int i = 0; i < this.columnNumber;i++) {
+			for (int i1 = 0; i1 < this.rowNumber;i1++) {
 				this.chars[i][i1].setText(String.valueOf((char) this.charMap[i][i1]));
+			}
+		}
+	}
+	
+	private void initDisplay() {
+		super.setVisible(true);
+		for (int i = 0; i < this.columnNumber;i++) {
+			for (int i1 = 0; i1 < this.rowNumber;i1++) {
+				this.chars[i][i1] = new JLabel();
+				super.add(this.chars[i][i1]);
+				this.chars[i][i1].setText(" ");
+				this.chars[i][i1].setSize(16, 20);
+				
 			}
 		}
 	}
