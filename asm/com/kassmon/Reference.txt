@@ -29,6 +29,13 @@ mul (value or memory address)
 div (value or memory address)
 mod (value or memory address)
 
+not (value or memory address)
+and (value or memory address)
+or  (value or memory address)
+xor (value or memory address)
+
+cmp (value or memory address)
+
 jmp (label)
 jez (label)
 jlz (label)
@@ -38,8 +45,12 @@ jnz (label)
 jsr (label)
 rsr
 
-wpc
+wpc (value or memory address)
 rpc
+
+psh
+pul
+clk
 
 //ext controls 
 

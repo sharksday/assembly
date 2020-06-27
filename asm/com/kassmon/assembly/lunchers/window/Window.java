@@ -129,9 +129,9 @@ public class Window extends JFrame{
 	}
 	
 	private void build() {
-		CommandTokenizer t = new CommandTokenizer();
-		t.setInput(this.input.getText());
-		this.runtime.setProgram(t.getProgram());
+		//CommandTokenizer t = new CommandTokenizer();
+		//t.setInput(this.input.getText());
+		//this.runtime.setProgram(t.getProgram());
 	}
 	
 	private void runProgram() {

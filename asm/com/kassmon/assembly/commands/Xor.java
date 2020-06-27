@@ -9,7 +9,7 @@ import com.kassmon.library.log.EntryType;
 
 public class Xor extends Command {
 	
-private String path = "com.kassmon.assembly.program.commands.Xor";
+	private String path = "com.kassmon.assembly.program.commands.Xor";
 	
 	@Override
 	public Command parse(CommandTokenizer t) {

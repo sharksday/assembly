@@ -135,6 +135,7 @@ public class TextDisplay extends JFrame implements ExternalBusItem {
 		}
 	}
 	
+	@SuppressWarnings("unused")
 	private void printScrean() {
 		for (int i = 0; i < this.columnNumber;i++) {
 			for (int i1 = 0; i1 < this.rowNumber;i1++) {

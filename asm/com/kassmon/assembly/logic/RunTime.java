@@ -5,9 +5,12 @@ import java.util.Stack;
 
 import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.program.Program;
+import com.kassmon.library.log.EntryType;
+import com.kassmon.library.log.Log;
 
 //@SuppressWarnings("unused")
 public class RunTime {
+	private String path = "com.kassmon.assembly.logic.Runtime";
 	private Program program;
 	// memory
 	private int acc;
@@ -34,6 +37,11 @@ public class RunTime {
 	
 	public void setProgram(Program program) {
 		this.program = program;
+		if (this.program != null) {
+			int temp = this.program.getProgramLength();
+			Log.newLogEntry(EntryType.INFO, path, "program set   length = " + temp);
+		}
+		
 	}
 	
 	public int getAcc() {
@@ -110,6 +118,9 @@ public class RunTime {
 		}
 		System.out.println();
 		System.out.println(adr);
+		System.out.print(this.zero);
+		System.out.print(" <=z   n=> ");
+		System.out.println(this.negative);
 	} 
 	
 	public void addBusItem(ExternalBusItem item) {
@@ -120,6 +131,11 @@ public class RunTime {
 		return bus;
 	}
 	
-	
+	public void RunProgram(boolean reportAfterCommand) {
+		while (this.program.getProgramLength() > this.getPc()) {
+			this.runCommand(this.pc);
+			if (reportAfterCommand) this.printMem();
+		}
+	}
 	
 }

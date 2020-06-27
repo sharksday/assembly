@@ -36,7 +36,8 @@ public class Jez extends Command {
 	
 	@Override
 	public void run(RunTime runtime) {
-		if (runtime.isZero()) {
+		System.out.println(runtime.getAcc() == 0);
+		if (runtime.getAcc() == 0) {
 			Program program = runtime.getProgram();
 			for (int i = 0; i < program.getProgramLength(); i++) {
 				if (!program.getProgramLine(i).isCommand()) {
