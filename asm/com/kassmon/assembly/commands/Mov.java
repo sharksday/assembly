@@ -68,7 +68,6 @@ public class Mov extends Command {
 	@Override
 	public void run(RunTime runtime) {
 		if (a2.getValue().equals("acc")) {
-			super.setFlags(runtime);
 			runtime.setAcc(super.getValue(runtime, a1));
 		}else if (a2.getValue().equals("adr")) {
 			runtime.setAdr(super.getValue(runtime, a1));

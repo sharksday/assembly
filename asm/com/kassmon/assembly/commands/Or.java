@@ -37,7 +37,6 @@ public class Or extends Command {
 	@Override
 	public void run(RunTime runtime) {
 		runtime.setAcc(runtime.getAcc() | super.getValue(runtime, a1));
-		super.setFlags(runtime);
 	}
 	
 }

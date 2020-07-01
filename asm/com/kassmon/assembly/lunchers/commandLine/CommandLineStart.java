@@ -29,7 +29,6 @@ public class CommandLineStart {
 		new And(),
 		new Or(),
 		new Xor(),
-		new Cmp(),
 		new Jmp(),
 		new Jez(),
 		new Jlz(),

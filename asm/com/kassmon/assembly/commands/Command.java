@@ -49,16 +49,6 @@ public abstract class Command {
 		return 0;
 	}
 	
-	public void setFlags(RunTime runtime) {
-		if (runtime.getAcc() == 0) {
-			runtime.setZero(true);
-			runtime.setNegative(false);
-		}else if (runtime.getAcc() < 0) {
-			runtime.setZero(false);
-			runtime.setNegative(true);
-		}
-	}
-	
 	public abstract Command parse(CommandTokenizer t);
 	
 	public abstract String getPattern();

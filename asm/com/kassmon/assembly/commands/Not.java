@@ -18,7 +18,6 @@ public class Not extends Command {
 	@Override
 	public void run(RunTime runtime) {
 		runtime.setAcc(runtime.getAcc() * -1);
-		super.setFlags(runtime);
 	}
 	
 }

@@ -20,9 +20,7 @@ public class RunTime {
 	//External items
 	private int adr;
 	private ArrayList<ExternalBusItem> bus;
-	//flags
-	private boolean zero;
-	private boolean negative;
+	
 	
 	
 	public RunTime() {
@@ -94,22 +92,6 @@ public class RunTime {
 		}
 		this.pc++;
 	}
-	
-	public boolean isZero() {
-		return zero;
-	}
-
-	public void setZero(boolean zero) {
-		this.zero = zero;
-	}
-
-	public boolean isNegative() {
-		return negative;
-	}
-
-	public void setNegative(boolean negative) {
-		this.negative = negative;
-	}
 
 	public void printMem() {
 		System.out.println(acc + " " + (pc));
@@ -118,9 +100,6 @@ public class RunTime {
 		}
 		System.out.println();
 		System.out.println(adr);
-		System.out.print(this.zero);
-		System.out.print(" <=z   n=> ");
-		System.out.println(this.negative);
 	} 
 	
 	public void addBusItem(ExternalBusItem item) {
