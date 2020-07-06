@@ -7,11 +7,35 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import com.kassmon.assembly.commands.*;
-import com.kassmon.assembly.externalBuss.*;
+import com.kassmon.assembly.commands.branchingCommands.Jez;
+import com.kassmon.assembly.commands.branchingCommands.Jgz;
+import com.kassmon.assembly.commands.branchingCommands.Jlz;
+import com.kassmon.assembly.commands.branchingCommands.Jmp;
+import com.kassmon.assembly.commands.branchingCommands.Jnz;
+import com.kassmon.assembly.commands.branchingCommands.Jsr;
+import com.kassmon.assembly.commands.branchingCommands.Rsr;
+import com.kassmon.assembly.commands.controlCommands.Clk;
+import com.kassmon.assembly.commands.controlCommands.Mov;
+import com.kassmon.assembly.commands.controlCommands.Nop;
+import com.kassmon.assembly.commands.controlCommands.Psh;
+import com.kassmon.assembly.commands.controlCommands.Pul;
+import com.kassmon.assembly.commands.controlCommands.Rpc;
+import com.kassmon.assembly.commands.controlCommands.Wpc;
+import com.kassmon.assembly.commands.mathCommands.Add;
+import com.kassmon.assembly.commands.mathCommands.And;
+import com.kassmon.assembly.commands.mathCommands.Div;
+import com.kassmon.assembly.commands.mathCommands.Mod;
+import com.kassmon.assembly.commands.mathCommands.Mul;
+import com.kassmon.assembly.commands.mathCommands.Not;
+import com.kassmon.assembly.commands.mathCommands.Or;
+import com.kassmon.assembly.commands.mathCommands.Sub;
+import com.kassmon.assembly.commands.mathCommands.Xor;
+import com.kassmon.assembly.externalBuss.old.*;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 import com.kassmon.library.log.*;
+
 import static com.kassmon.library.log.Log.newLogEntry;;
 
 public class CommandLineStart {

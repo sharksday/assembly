@@ -5,6 +5,7 @@ import static com.kassmon.library.log.Log.newLogEntry;
 import java.util.regex.Pattern;
 
 import com.kassmon.assembly.commands.*;
+import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.program.ProgramLine;
 import com.kassmon.library.log.EntryType;
@@ -48,19 +49,23 @@ public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 	}
 	
 	private ProgramLine getProgramaLine() {
-		Token t = super.getNextToken();
-		switch (t.getType()) {
-			case "command":
-				newLogEntry(EntryType.INFO, path, "command made " + t.getToken());
-				for (Command command : commandList) {
-					if (t.getToken().equals(command.getPattern())) {
-						return new ProgramLine(command.parse(this));
+		try {
+			Token t = super.getNextToken();
+			switch (t.getType()) {
+				case "command":
+					newLogEntry(EntryType.INFO, path, "command made " + t.getToken());
+					for (Command command : commandList) {
+						if (t.getToken().equals(command.getPattern())) {
+							return new ProgramLine(command.parse(this));
+						}
 					}
-				}
-			case "label":
-				return new ProgramLine(t.getToken().substring(1));
-			default:
-				newLogEntry(EntryType.ERROR, path, "not a valid command id");
+				case "label":
+					return new ProgramLine(t.getToken().substring(1));
+				default:
+					newLogEntry(EntryType.ERROR, path, "not a valid command id");
+			}
+		} catch (ParcerException e) {
+			e.printStackTrace();
 		}
 		return null;
 	}

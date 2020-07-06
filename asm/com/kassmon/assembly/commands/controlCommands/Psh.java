@@ -1,8 +1,10 @@
-package com.kassmon.assembly.commands;
+package com.kassmon.assembly.commands.controlCommands;
 
 import static com.kassmon.library.log.Log.newLogEntry;
 
-import com.kassmon.assembly.externalBuss.ExternalBusItem;
+import com.kassmon.assembly.commands.Command;
+import com.kassmon.assembly.exceptions.ParcerException;
+import com.kassmon.assembly.externalBuss.old.ExternalBusItem;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
@@ -12,7 +14,7 @@ public class Psh extends Command {
 	private String path = "com.kassmon.assembly.program.commands.Psh";
 	
 	@Override
-	public Command parse(CommandTokenizer t) {
+	public Command parse(CommandTokenizer t) throws ParcerException{
 		Argument a1 = super.getArg(t);
 		if (a1 != null) if (!a1.isLabel()) return new Psh(a1);
 		newLogEntry(EntryType.ERROR, path, "not a valid argument");

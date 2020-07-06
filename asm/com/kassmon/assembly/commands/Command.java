@@ -6,6 +6,7 @@ import com.kassmon.library.tokenizers.Token;
 
 import static com.kassmon.library.log.Log.newLogEntry;
 
+import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 
@@ -49,7 +50,20 @@ public abstract class Command {
 		return 0;
 	}
 	
-	public abstract Command parse(CommandTokenizer t);
+	public void setValue(RunTime runtime, Argument arg, int value) {
+		if (arg.getValue().equals("acc")){
+			runtime.setAcc(value);
+		}else if (arg.getValue().equals("adr")) {
+			runtime.setAdr(value);
+		}else if (arg.getValue().contains("a")) {
+			int aLoc = Integer.parseInt(arg.getValue().substring(1));
+			if (runtime.getALength() > aLoc) {
+				runtime.setA(aLoc, value);
+			}
+		}
+	}
+	
+	public abstract Command parse(CommandTokenizer t) throws ParcerException;
 	
 	public abstract String getPattern();
 	

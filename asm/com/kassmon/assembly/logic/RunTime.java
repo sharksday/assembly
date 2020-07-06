@@ -3,7 +3,7 @@ package com.kassmon.assembly.logic;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.kassmon.assembly.externalBuss.ExternalBusItem;
+import com.kassmon.assembly.externalBuss.old.ExternalBusItem;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.library.log.EntryType;
 import com.kassmon.library.log.Log;

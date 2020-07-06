@@ -1,5 +1,7 @@
-package com.kassmon.assembly.commands;
+package com.kassmon.assembly.commands.controlCommands;
 
+import com.kassmon.assembly.commands.Command;
+import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
@@ -11,7 +13,7 @@ public class Mov extends Command {
 	private String path = "com.kassmon.assembly.program.commands.Mov";
 	
 	@Override
-	public Command parse(CommandTokenizer t) {
+	public Command parse(CommandTokenizer t) throws ParcerException{
 		Argument a1 = null, a2 = null;
 		Argument temp = super.getArg(t);
 		if (temp != null) {
