@@ -106,7 +106,8 @@ public class CommandLineStart {
 		} catch (IOException e) {
 			
 		} catch (ParcerException e) {
-			
+			e.printStackTrace();
+			System.exit(0);
 		}
 		return null;
 	}

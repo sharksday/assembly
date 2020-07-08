@@ -35,7 +35,7 @@ public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		
 		super.addPattern(Pattern.compile("^(acc)"), "mem");
 		super.addPattern(Pattern.compile("^(adr)"), "mem");
-		super.addPattern(Pattern.compile("^(pc)"), "mem");
+		//super.addPattern(Pattern.compile("^(pc)"), "mem");
 		super.addPattern(Pattern.compile("^(null)"), "mem");
 		super.addPattern(Pattern.compile("^(a[0-9][0-9])"), "mem");
 		super.addPattern(Pattern.compile("^(0x[0-9abcdef][0-9abcdef])"), "hex");

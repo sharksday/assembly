@@ -10,45 +10,16 @@ import com.kassmon.library.log.EntryType;
 import static com.kassmon.library.log.Log.newLogEntry;
 
 public class Mov extends Command {
-	private String path = "com.kassmon.assembly.program.commands.Mov";
 	
 	@Override
 	public Command parse(CommandTokenizer t) throws ParcerException{
-		Argument a1 = null, a2 = null;
-		Argument temp = super.getArg(t);
-		if (temp != null) {
-			if (!temp.isLabel()) {
-				if (!temp.isNumber() & temp.getValue().equals("pc")) {
-					newLogEntry(EntryType.ERROR, path, "not a valid argument");
-					return new Nop();
-				}
-				a1 = temp;
-			}else {
-				newLogEntry(EntryType.ERROR, path, "not a valid argument");
-				return new Nop();
-			}
-			temp = super.getArg(t);
-			if (temp != null) {
-				if (!temp.isLabel()) {
-					if (!temp.isNumber()) {
-						a2 = temp;
-					}else {
-						newLogEntry(EntryType.ERROR, path, "not a valid argument");
-						return new Nop();
-					}
-				}else {
-					newLogEntry(EntryType.ERROR, path, "not a valid argument");
-					return new Nop();
-				}
-				return new Mov(a1, a2);
-			}else {
-				newLogEntry(EntryType.ERROR, path, "not a valid argument");
-				return new Nop();
-			}
-		}else {
-			newLogEntry(EntryType.ERROR, path, "not a valid argument");
-			return new Nop();
-		}
+		Argument a1 = super.getArg(t), a2 = super.getArg(t);
+		if (a1 == null) throw new ParcerException("mov : argument error : null arg");
+		if (a2 == null) throw new ParcerException("mov : argument error : null arg");
+		if (a1.isLabel()) throw new ParcerException("mov : argument error : illegal label");
+		if (a2.isLabel()) throw new ParcerException("mov : argument error : illegal label");
+		if (a2.isNumber()) throw new ParcerException("mov : argument error : illegal number");
+		return new Mov (a1, a2);
 	}
 	
 	@Override
@@ -69,19 +40,7 @@ public class Mov extends Command {
 	
 	@Override
 	public void run(RunTime runtime) {
-		if (a2.getValue().equals("acc")) {
-			runtime.setAcc(super.getValue(runtime, a1));
-		}else if (a2.getValue().equals("adr")) {
-			runtime.setAdr(super.getValue(runtime, a1));
-		}else if (a2.getValue().contains("a")) {
-			if (runtime.getALength() > Integer.parseInt(a2.getValue().substring(1))) {
-				runtime.setA(Integer.parseInt(a2.getValue().substring(1)), super.getValue(runtime, a1));
-			}else {
-				newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
-			}
-		}else {
-			newLogEntry(EntryType.ERROR, path, "RunTime Error: destination error");
-		}
+		super.setValue(runtime, a2, super.getValue(runtime, a1));
 	}
 	
 }
