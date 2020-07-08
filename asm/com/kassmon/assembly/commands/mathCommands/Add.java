@@ -1,18 +1,12 @@
 package com.kassmon.assembly.commands.mathCommands;
 
-import static com.kassmon.library.log.Log.newLogEntry;
-
 import com.kassmon.assembly.commands.Command;
-import com.kassmon.assembly.commands.controlCommands.Nop;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
-import com.kassmon.library.log.EntryType;
 
 public class Add extends Command {
-	private String path = "com.kassmon.assembly.program.commands.Add";
-	
 	@Override
 	public Command parse(CommandTokenizer t) throws ParcerException {
 		boolean error = false;

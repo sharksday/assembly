@@ -1,25 +1,30 @@
 package com.kassmon.assembly.commands.mathCommands;
 
-import static com.kassmon.library.log.Log.newLogEntry;
-
 import com.kassmon.assembly.commands.Command;
-import com.kassmon.assembly.commands.controlCommands.Nop;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
-import com.kassmon.library.log.EntryType;
 
 public class Or extends Command {
 	
-	private String path = "com.kassmon.assembly.program.commands.Or";
-	
 	@Override
 	public Command parse(CommandTokenizer t) throws ParcerException{
+		boolean error = false;
 		Argument a1 = super.getArg(t);
-		if (a1 != null) if (!a1.isLabel()) return new Or(a1);
-		newLogEntry(EntryType.ERROR, path, "not a valid argument");
-		return new Nop();
+		Argument a2 = super.getArg(t);
+		Argument a3 = super.getArg(t);
+		if (a1 == null) error = true;
+		if (a2 == null) error = true;
+		if (a3 == null) error = true;
+		if (!error) {
+			if (a1.isLabel()) error = true;
+			if (a2.isLabel()) error = true;
+			if (a3.isLabel()) error = true;
+			if (a3.isNumber()) error = true;
+		}
+		if (!error) return new Or (a1, a2, a3);
+		throw new ParcerException("or : argument error");
 	}
 	
 	@Override
@@ -28,18 +33,23 @@ public class Or extends Command {
 	}
 	
 	private Argument a1;
+	private Argument a2;
+	private Argument a3;
+	
+	public Or (Argument a1, Argument a2, Argument a3) {
+		this.a1 = a1;
+		this.a2 = a2;
+		this.a3 = a3;
+	}
 	
 	public Or () {
 		
 	}
 	
-	public Or(Argument a1) {
-		this.a1 = a1;
-	}
-	
 	@Override
 	public void run(RunTime runtime) {
-		runtime.setAcc(runtime.getAcc() | super.getValue(runtime, a1));
+		int value = super.getValue(runtime, a1) | super.getValue(runtime, a2);
+		super.setValue(runtime, a3, value);
 	}
 	
 }

@@ -30,6 +30,7 @@ import com.kassmon.assembly.commands.mathCommands.Not;
 import com.kassmon.assembly.commands.mathCommands.Or;
 import com.kassmon.assembly.commands.mathCommands.Sub;
 import com.kassmon.assembly.commands.mathCommands.Xor;
+import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.externalBuss.old.*;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Program;
@@ -71,7 +72,6 @@ public class CommandLineStart {
 		Log.setReport(true);
 		Log.setReportLevel(EntryType.WARNING);
 		RunTime runtime = new RunTime();
-		
 		runtime.addBusItem(new Ram(0, 1));
 		runtime.addBusItem(new Ram(2, 3));
 		runtime.addBusItem(new Ram(4, 5));
@@ -81,10 +81,7 @@ public class CommandLineStart {
 		if (p != null) {
 			runtime.setProgram(p);
 		}
-		
-		newLogEntry(EntryType.WARNING, path, "program start");
 		runtime.RunProgram(true);
-		newLogEntry(EntryType.WARNING, path, "program end");
 	}
 	
 	private static Program getProgram(File file) {
@@ -107,6 +104,8 @@ public class CommandLineStart {
 		}catch (FileNotFoundException e) {
 			
 		} catch (IOException e) {
+			
+		} catch (ParcerException e) {
 			
 		}
 		return null;

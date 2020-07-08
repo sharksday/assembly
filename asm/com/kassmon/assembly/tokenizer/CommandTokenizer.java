@@ -48,29 +48,23 @@ public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		// super.addPattern(Pattern.compile("^([])"), "");
 	}
 	
-	private ProgramLine getProgramaLine() {
-		try {
-			Token t = super.getNextToken();
-			switch (t.getType()) {
-				case "command":
-					newLogEntry(EntryType.INFO, path, "command made " + t.getToken());
-					for (Command command : commandList) {
-						if (t.getToken().equals(command.getPattern())) {
-							return new ProgramLine(command.parse(this));
-						}
+	private ProgramLine getProgramaLine() throws ParcerException {
+		Token t = super.getNextToken();
+		switch (t.getType()) {
+			case "command":
+				for (Command command : commandList) {
+					if (t.getToken().equals(command.getPattern())) {
+						return new ProgramLine(command.parse(this));
 					}
-				case "label":
-					return new ProgramLine(t.getToken().substring(1));
-				default:
-					newLogEntry(EntryType.ERROR, path, "not a valid command id");
-			}
-		} catch (ParcerException e) {
-			e.printStackTrace();
+				}
+			case "label":
+				return new ProgramLine(t.getToken().substring(1));
+			default:
+				throw new ParcerException("CommandTokenizer : token error");
 		}
-		return null;
 	}
 	
-	public Program getProgram() {
+	public Program getProgram() throws ParcerException {
 		Program program = new Program();
 		while (super.hasNextToken()) {
 			if (!error){
