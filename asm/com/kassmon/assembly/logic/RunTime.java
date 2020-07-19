@@ -3,25 +3,25 @@ package com.kassmon.assembly.logic;
 import java.util.ArrayList;
 import java.util.Stack;
 
-import com.kassmon.assembly.externalBuss.old.ExternalBusItem;
+import com.kassmon.assembly.exceptions.RuntimeException;
+import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.program.Program;
-import com.kassmon.library.log.EntryType;
-import com.kassmon.library.log.Log;
 
 //@SuppressWarnings("unused")
 public class RunTime {
-	private String path = "com.kassmon.assembly.logic.Runtime";
 	private Program program;
-	// memory
-	private int acc;
+	//memory
 	private int a[];
 	private int pc;
 	private Stack<Integer> stack;
 	//External items
-	private int adr;
 	private ArrayList<ExternalBusItem> bus;
-	
-	
+	//flags
+	private boolean jez = false;
+	private boolean jnz = false;
+	private boolean jgz = false;
+	private boolean jlz = false;
+	private boolean reportAfterCommand;
 	
 	public RunTime() {
 		a = new int[16];
@@ -35,19 +35,6 @@ public class RunTime {
 	
 	public void setProgram(Program program) {
 		this.program = program;
-		if (this.program != null) {
-			int temp = this.program.getProgramLength();
-			Log.newLogEntry(EntryType.INFO, path, "program set   length = " + temp);
-		}
-		
-	}
-	
-	public int getAcc() {
-		return acc;
-	}
-	
-	public void setAcc(int acc) {
-		this.acc = acc;
 	}
 	
 	public int getA(int i) {
@@ -66,14 +53,38 @@ public class RunTime {
 		this.pc = pc;
 	}
 	
-	public int getAdr() {
-		return adr;
+	public boolean isJez() {
+		return jez;
 	}
-	
-	public void setAdr(int adr) {
-		this.adr = adr;
+
+	public void setJez(boolean jez) {
+		this.jez = jez;
 	}
-	
+
+	public boolean isJnz() {
+		return jnz;
+	}
+
+	public void setJnz(boolean jnz) {
+		this.jnz = jnz;
+	}
+
+	public boolean isJgz() {
+		return jgz;
+	}
+
+	public void setJgz(boolean jgz) {
+		this.jgz = jgz;
+	}
+
+	public boolean isJlz() {
+		return jlz;
+	}
+
+	public void setJlz(boolean jlz) {
+		this.jlz = jlz;
+	}
+
 	public int getALength() {
 		return a.length;
 	}
@@ -86,7 +97,7 @@ public class RunTime {
 		return this.stack.pop();
 	}
 	
-	public void runCommand(int pc) {
+	public void runCommand(int pc) throws RuntimeException {
 		if (program.getProgramLine(pc).isCommand()) {
 			program.getProgramLine(pc).getCommand().run(this);
 		}
@@ -94,12 +105,12 @@ public class RunTime {
 	}
 
 	public void printMem() {
-		System.out.println(acc + " " + (pc));
+		System.out.println((pc));
 		for (Integer i: a) {
 			System.out.print(i + " ");
 		}
 		System.out.println();
-		System.out.println(adr);
+		
 	} 
 	
 	public void addBusItem(ExternalBusItem item) {
@@ -110,11 +121,22 @@ public class RunTime {
 		return bus;
 	}
 	
-	public void RunProgram(boolean reportAfterCommand) {
+	public void RunProgram(boolean reportAfterCommand) throws RuntimeException {
+		this.reportAfterCommand = reportAfterCommand;
 		while (this.program.getProgramLength() > this.getPc()) {
 			this.runCommand(this.pc);
-			if (reportAfterCommand) this.printMem();
+			if (this.reportAfterCommand) this.printMem();
 		}
 	}
+
+	public boolean isReportAfterCommand() {
+		return reportAfterCommand;
+	}
+
+	public void setReportAfterCommand(boolean reportAfterCommand) {
+		this.reportAfterCommand = reportAfterCommand;
+	}
+	
+	
 	
 }

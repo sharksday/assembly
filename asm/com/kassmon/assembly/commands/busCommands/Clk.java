@@ -1,29 +1,28 @@
-package com.kassmon.assembly.commands.branchingCommands;
+package com.kassmon.assembly.commands.busCommands;
 
 import com.kassmon.assembly.commands.Command;
 import com.kassmon.assembly.exceptions.ParcerException;
+import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
-public class Rsr extends Command {
+public class Clk extends Command {
 	
 	@Override
 	public Command parse(CommandTokenizer t) throws ParcerException{
-		return new Rsr();
+		return new Clk();
 	}
 	
 	@Override
 	public String getPattern() {
-		return "rsr";
-	}
-	
-	public Rsr() {
-		
+		return "clk";
 	}
 	
 	@Override
 	public void run(RunTime runtime) {
-		runtime.setPc(runtime.popFromStack());
+		for (ExternalBusItem obj: runtime.getBus()) {
+			obj.clock();
+		}
 	}
 	
 }

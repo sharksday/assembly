@@ -2,12 +2,10 @@ package com.kassmon.assembly.commands.controlCommands;
 
 import com.kassmon.assembly.commands.Command;
 import com.kassmon.assembly.exceptions.ParcerException;
+import com.kassmon.assembly.exceptions.RuntimeException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
-import com.kassmon.library.log.EntryType;
-
-import static com.kassmon.library.log.Log.newLogEntry;
 
 public class Mov extends Command {
 	
@@ -39,7 +37,7 @@ public class Mov extends Command {
 	}
 	
 	@Override
-	public void run(RunTime runtime) {
+	public void run(RunTime runtime) throws RuntimeException {
 		super.setValue(runtime, a2, super.getValue(runtime, a1));
 	}
 	

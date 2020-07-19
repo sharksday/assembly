@@ -1,18 +1,13 @@
 package com.kassmon.assembly.commands;
 
-import com.kassmon.assembly.tokenizer.CommandTokenizer;
-import com.kassmon.library.log.EntryType;
-import com.kassmon.library.tokenizers.Token;
-
-import static com.kassmon.library.log.Log.newLogEntry;
-
-import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
+import com.kassmon.assembly.tokenizer.CommandTokenizer;
+import com.kassmon.library.tokenizers.Token;
+import com.kassmon.assembly.exceptions.*;
+import com.kassmon.assembly.exceptions.RuntimeException;
 
 public abstract class Command {
-	private String path = "com.kassmon.assembly.program.commands.Command";
-	
 	public Argument getArg(CommandTokenizer t) {
 		Token token = t.getNextToken();
 		switch (token.getType()){
@@ -31,31 +26,23 @@ public abstract class Command {
 		return null;	
 	}
 	
-	public int getValue(RunTime runtime, Argument arg) {
+	public int getValue(RunTime runtime, Argument arg) throws RuntimeException {
 		if (arg.isNumber()) {
 			return Integer.parseInt(arg.getValue());
-		}else {
-			if (arg.getValue().equals("acc")) {
-				return runtime.getAcc();
-			}else if (arg.getValue().equals("adr")) {
-				return runtime.getAdr();
-			}else if (arg.getValue().contains("a")) {
-				if (runtime.getALength() > Integer.parseInt(arg.getValue().substring(1))) {
-					return runtime.getA(Integer.parseInt(arg.getValue().substring(1)));
-				}else {
-					newLogEntry(EntryType.ERROR, path, "RunTime Error: Location out of bounds");
-				}
+		}else if (arg.getValue().contains("a")) {
+			if (runtime.getALength() > Integer.parseInt(arg.getValue().substring(1))) {
+				return runtime.getA(Integer.parseInt(arg.getValue().substring(1)));
+			}else {
+				throw new RuntimeException("RunTime Error: Location out of bounds");
 			}
+		}else {
+			throw new RuntimeException("RunTime Error: Location error");
 		}
-		return 0;
 	}
 	
+	
 	public void setValue(RunTime runtime, Argument arg, int value) {
-		if (arg.getValue().equals("acc")){
-			runtime.setAcc(value);
-		}else if (arg.getValue().equals("adr")) {
-			runtime.setAdr(value);
-		}else if (arg.getValue().contains("a")) {
+		if (arg.getValue().contains("a")) {
 			int aLoc = Integer.parseInt(arg.getValue().substring(1));
 			if (runtime.getALength() > aLoc) {
 				runtime.setA(aLoc, value);
@@ -67,6 +54,6 @@ public abstract class Command {
 	
 	public abstract String getPattern();
 	
-	public abstract void run(RunTime runtime);
+	public abstract void run(RunTime runtime) throws RuntimeException;
 	
 }

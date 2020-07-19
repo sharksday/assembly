@@ -1,45 +1,38 @@
-package com.kassmon.assembly.commands.branchingCommands;
-
-import static com.kassmon.library.log.Log.newLogEntry;
+package com.kassmon.assembly.commands.controlCommands;
 
 import com.kassmon.assembly.commands.Command;
-import com.kassmon.assembly.commands.controlCommands.Nop;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.logic.RunTime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
-import com.kassmon.library.log.EntryType;
 
-public class Jsr extends Command {
-	private String path = "com.kassmon.assembly.program.commands.Jsr";
-	
+public class Jmp extends Command {
 	@Override
 	public Command parse(CommandTokenizer t) throws ParcerException{
 		Argument a1 = super.getArg(t);
-		if (a1 != null) if (a1.isLabel()) return new Jsr(a1);
-		newLogEntry(EntryType.ERROR, path, "not a valid argument");
-		return new Nop();
+		if (a1 == null) throw new ParcerException("jmp : argument error : null argument");
+		if (!a1.isLabel()) throw new ParcerException("jmp : argument error : illegal argument type");
+		return new Jmp(a1);
 	}
-	
+
 	@Override
 	public String getPattern() {
-		return "jsr";
+		 return "jmp";
 	}
 	
 	private Argument a1;
 	
-	public Jsr(Argument a1) {
+	public Jmp (Argument a1) {
 		this.a1 = a1;
 	}
 	
-	public Jsr() {
+	public Jmp () {
 		
 	}
 	
 	@Override
 	public void run(RunTime runtime) {
-		runtime.pushToStack(runtime.getPc());
 		Program program = runtime.getProgram();
 		for (int i = 0; i < program.getProgramLength(); i++) {
 			if (!program.getProgramLine(i).isCommand()) {
@@ -49,5 +42,5 @@ public class Jsr extends Command {
 			}
 		}
 	}
-	
+
 }
