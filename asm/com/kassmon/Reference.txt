@@ -1,6 +1,4 @@
 //memory addresses
-acc	"accumulate"
-adr	"address"
 a00	"register 0"
 a01	"register 1"
 a02	"register 2"
@@ -17,7 +15,6 @@ a12	"register 12"
 a13	"register 13"
 a14	"register 14"
 a15	"register 15"
-pc 	"program counter"
 
 //commands
 nop

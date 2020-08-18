@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public class OutputControler {
 	
-	private static ArrayList<OutputEvent> eventListeners;
+	private static ArrayList<OutputEvent> eventListeners = new ArrayList<>();
 	
 	private static boolean textMode = false;
+	@SuppressWarnings("unused")
 	private static boolean standAloneOutput = false;
 	private static boolean outputEvent = false;
 	
@@ -23,11 +24,10 @@ public class OutputControler {
 	}
 	
 	public static void output(String text) {
+		//System.out.println("out");
 		if (textMode){
 			System.out.print(text);
-		}else if (standAloneOutput) {
-			
-		}else if (outputEvent) {
+		}if (outputEvent) {
 			for (OutputEvent obj: eventListeners) {
 				obj.output(text);
 			}

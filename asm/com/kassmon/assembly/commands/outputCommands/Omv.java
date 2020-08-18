@@ -19,7 +19,7 @@ public class Omv extends Command {
 	
 	@Override
 	public void run(RunTime runtime) {
-		runtime.setReportAfterCommand(!runtime.isReportAfterCommand());
+		runtime.printMem();
 	}
 	
 }

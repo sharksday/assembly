@@ -42,15 +42,14 @@ public class Pul extends Command {
 	
 	@Override
 	public void run(RunTime runtime) throws RuntimeException {
-		int data = 0;
 		for (ExternalBusItem obj: runtime.getBus()) {
 			try {
-				data = obj.pull(super.getValue(runtime, a1));
+				super.setValue(runtime, a2, obj.pull(super.getValue(runtime, a1)));
 			} catch (BusNoOutputExcption e) {
 				break;	
 			}
 		}
-		super.setValue(runtime, a2, data);
+		
 	}
 	
 }

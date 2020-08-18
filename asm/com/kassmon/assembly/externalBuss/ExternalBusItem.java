@@ -6,4 +6,6 @@ public interface ExternalBusItem {
 	void push(int adr, int value);
 	int pull(int adr) throws BusNoOutputExcption;
 	void clock();
+	int getCommandAdr();
+	int getDataAdr();
 }

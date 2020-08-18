@@ -5,9 +5,9 @@ import java.util.Stack;
 
 import com.kassmon.assembly.exceptions.RuntimeException;
 import com.kassmon.assembly.externalBuss.ExternalBusItem;
+import com.kassmon.assembly.io.OutputControler;
 import com.kassmon.assembly.program.Program;
 
-//@SuppressWarnings("unused")
 public class RunTime {
 	private Program program;
 	//memory
@@ -105,11 +105,11 @@ public class RunTime {
 	}
 
 	public void printMem() {
-		System.out.println((pc));
+		OutputControler.output(String.valueOf(pc) + System.lineSeparator());
 		for (Integer i: a) {
-			System.out.print(i + " ");
+			OutputControler.output(String.valueOf(i) + " ");
 		}
-		System.out.println();
+		OutputControler.output(System.lineSeparator());
 		
 	} 
 	

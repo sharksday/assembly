@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry excluding="com/kassmon/Reference.txt|test.asm" kind="src" path=""/>
-	<classpathentry kind="lib" path="M:/java/projects/jars/library.jar"/>
+	<classpathentry kind="lib" path="M:/java/projects/jars/library.jar" sourcepath="M:/java/projects/library"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

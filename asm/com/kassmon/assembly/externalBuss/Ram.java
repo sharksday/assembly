@@ -17,6 +17,8 @@ public class Ram implements ExternalBusItem {
 		this.ram = new int[this.ramSise];
 	}
 	
+	
+	
 	@Override
 	public void push(int adr, int value) {
 		if (adr == this.commandAdr) {
@@ -54,5 +56,19 @@ public class Ram implements ExternalBusItem {
 				break;
 		}
 	}
+
+
+
+	public int getCommandAdr() {
+		return commandAdr;
+	}
+
+
+
+	public int getDataAdr() {
+		return dataAdr;
+	}
+	
+	
 	
 }
