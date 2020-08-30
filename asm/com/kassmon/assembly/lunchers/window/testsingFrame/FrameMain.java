@@ -112,6 +112,9 @@ public class FrameMain {
 			case "bus":
 				busCommands();
 				break;
+			case "help":
+				help();
+				break;
 			default:
 				break;
 		}
@@ -212,23 +215,7 @@ public class FrameMain {
 		if (token.getType().equals("componet")) {
 			switch (token.getToken()) {
 				case "make":
-					token = t.getNextToken();
-					if (token.getToken().equals("ram")) {
-						int adr0 = 0, adr1 = 0;
-						token = t.getNextToken();
-						if (token.getType().equals("value")) {
-							adr0 = Integer.parseInt(token.getToken());
-						}else if (token.getToken().equals("hex")) {
-							adr0 = Integer.parseInt(token.getToken().substring(2), 16);
-						}
-						token = t.getNextToken();
-						if (token.getType().equals("value")) {
-							adr1 = Integer.parseInt(token.getToken());
-						}else if (token.getToken().equals("hex")) {
-							adr1 = Integer.parseInt(token.getToken().substring(2), 16);
-						}
-						runtime.addBusItem(new Ram(adr0, adr1));
-					}
+					busMakeItem();
 					break;
 				case "remove":
 					token = t.getNextToken();
@@ -249,8 +236,50 @@ public class FrameMain {
 						addTextToConsole(String.valueOf(i) + " " +type + " " + adr0 + " " + adr1);
 					}
 					break;
+				case "info":
+					busInfo();
+					break;
 				default:
 					break;
+			}
+		}
+	}
+	
+	private static void busMakeItem() {
+		Token token = t.getNextToken();
+		if (token.getToken().equals("ram")) {
+			int adr0 = 0, adr1 = 0;
+			token = t.getNextToken();
+			if (token.getType().equals("value")) {
+				adr0 = Integer.parseInt(token.getToken());
+			}else if (token.getToken().equals("hex")) {
+				adr0 = Integer.parseInt(token.getToken().substring(2), 16);
+			}
+			token = t.getNextToken();
+			if (token.getType().equals("value")) {
+				adr1 = Integer.parseInt(token.getToken());
+			}else if (token.getToken().equals("hex")) {
+				adr1 = Integer.parseInt(token.getToken().substring(2), 16);
+			}
+			runtime.addBusItem(new Ram(adr0, adr1));
+		}
+	}
+	
+	private static void busInfo() {
+		if (!t.hasNextToken()) {
+			
+		}else {
+			Token token = t.getNextToken();
+			if (token.getType().equals("bus")) {
+				switch (token.getToken()) {
+					case "ram":
+						addTextToConsole("command \"1\" set ram cell to read or wright the data");
+						addTextToConsole("command \"2\" sets data to selected ram cell");
+						addTextToConsole("command \"3\" gest data from selected ram cell");
+						break;
+					default:
+						break;
+				}
 			}
 		}
 	}
@@ -259,6 +288,37 @@ public class FrameMain {
 		consoleOutput.setText(consoleOutput.getText() + s + System.lineSeparator());
 	}
 	
-	
+	private static void help() {
+		if (!t.hasNextToken()) {
+			addTextToConsole("to show more help on a command use \"help (command)\"");
+			addTextToConsole("\"open\" open a file of you choice.");
+			addTextToConsole("\"save\" saves the program to the currently open file.");
+			addTextToConsole("\"run\" runs the program displayed in the program editor.");
+			addTextToConsole("\"exit\" closes the program.");
+			addTextToConsole("\"clear\" alows the user to clear the console or the program editor.");
+			addTextToConsole("\"bus\" prefix for all bus commands.");
+		}else {
+			Token token = t.getNextToken();
+			if (token.getType().equals("command")) {
+				switch (token.getToken()) {
+				case "run":
+					
+					break;
+				case "open":
+					break;
+				case "save":
+					break;
+				case "exit":
+					break;
+				case "clear":
+					break;
+				case "bus":
+					break;
+				case "help":
+					break;
+				}
+			}
+		}
+	}
 	
 }

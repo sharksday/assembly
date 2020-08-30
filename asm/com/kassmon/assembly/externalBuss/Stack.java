@@ -2,19 +2,17 @@ package com.kassmon.assembly.externalBuss;
 
 import com.kassmon.assembly.exceptions.BusNoOutputExcption;
 
-public class Ram implements ExternalBusItem {
+public class Stack implements ExternalBusItem {
 	
 	private int commandAdr = -1, dataAdr = -1;
 	private int command = 0, data = 0;
 	
-	private int ramSise = 255;
-	private int loc = 0;
-	private int ram[];
+	private java.util.Stack<Integer> s;
 	
-	public Ram(int commandAdr, int dataAdr) {
+	public Stack(int commandAdr, int dataAdr) {
 		this.commandAdr = commandAdr;
 		this.dataAdr = dataAdr;
-		this.ram = new int[this.ramSise];
+		this.s = new java.util.Stack<>();
 	}
 	
 	@Override
@@ -37,17 +35,12 @@ public class Ram implements ExternalBusItem {
 	public void clock() {
 		switch (command) {
 			case 1:
-				this.loc = this.data;
+				this.s.push(data);
 				this.data = 0;
 				this.command = 0;
 				break;
 			case 2:
-				this.ram[this.loc] = this.data;
-				this.data = 0;
-				this.command = 0;
-				break;
-			case 3:
-				this.data = this.ram[this.loc];
+				data = this.s.pop();
 				this.command = 0;
 				break;
 			default:
