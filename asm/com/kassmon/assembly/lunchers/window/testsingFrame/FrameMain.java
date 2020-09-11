@@ -22,6 +22,7 @@ import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
 import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.externalBuss.Ram;
+import com.kassmon.assembly.externalBuss.Stack;
 import com.kassmon.assembly.io.OutputControler;
 import com.kassmon.assembly.io.OutputEvent;
 import com.kassmon.assembly.logic.RunTime;
@@ -246,22 +247,26 @@ public class FrameMain {
 	}
 	
 	private static void busMakeItem() {
+		Token type = t.getNextToken();
 		Token token = t.getNextToken();
-		if (token.getToken().equals("ram")) {
-			int adr0 = 0, adr1 = 0;
+		int adr[] = {0,0};
+		for (int i = 0; i < 2; i ++) {
 			token = t.getNextToken();
 			if (token.getType().equals("value")) {
-				adr0 = Integer.parseInt(token.getToken());
-			}else if (token.getToken().equals("hex")) {
-				adr0 = Integer.parseInt(token.getToken().substring(2), 16);
+				adr[i] = Integer.parseInt(token.getToken());
+			}else if (token.getType().equals("hex")) {
+				adr[i] = Integer.parseInt(token.getToken().substring(2), 16);
 			}
-			token = t.getNextToken();
-			if (token.getType().equals("value")) {
-				adr1 = Integer.parseInt(token.getToken());
-			}else if (token.getToken().equals("hex")) {
-				adr1 = Integer.parseInt(token.getToken().substring(2), 16);
-			}
-			runtime.addBusItem(new Ram(adr0, adr1));
+		}
+		switch (type.getToken()) {
+			case "ram":
+				runtime.addBusItem(new Ram(adr[1], adr[0]));
+				break;
+			case "stack":
+				runtime.addBusItem(new Stack(adr[1],adr[0]));
+				break;
+			default:
+				break;
 		}
 	}
 	
@@ -276,6 +281,8 @@ public class FrameMain {
 						addTextToConsole("command \"1\" set ram cell to read or wright the data");
 						addTextToConsole("command \"2\" sets data to selected ram cell");
 						addTextToConsole("command \"3\" gest data from selected ram cell");
+						break;
+					case "stack":
 						break;
 					default:
 						break;
