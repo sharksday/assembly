@@ -3,7 +3,7 @@ package com.kassmon.assembly.commands.mathCommands;
 import com.kassmon.assembly.commands.Command;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.IRuntime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
@@ -35,7 +35,7 @@ public class Not extends Command {
 	}
 	
 	@Override
-	public void run(RunTime runtime) throws RuntimeException {
+	public void run(IRuntime runtime) throws RuntimeException {
 		super.setValue(runtime, a1, (super.getValue(runtime, a1) * -1));
 	}
 	

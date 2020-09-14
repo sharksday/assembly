@@ -2,7 +2,7 @@ package com.kassmon.assembly.commands.controlCommands;
 
 import com.kassmon.assembly.commands.Command;
 import com.kassmon.assembly.exceptions.ParcerException;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.IRuntime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
@@ -32,7 +32,7 @@ public class Jsr extends Command {
 	}
 	
 	@Override
-	public void run(RunTime runtime) {
+	public void run(IRuntime runtime) {
 		runtime.pushToStack(runtime.getPc());
 		Program program = runtime.getProgram();
 		for (int i = 0; i < program.getProgramLength(); i++) {

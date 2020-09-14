@@ -25,7 +25,7 @@ import com.kassmon.assembly.externalBuss.Ram;
 import com.kassmon.assembly.externalBuss.Stack;
 import com.kassmon.assembly.io.OutputControler;
 import com.kassmon.assembly.io.OutputEvent;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.Runtime;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 import com.kassmon.assembly.tokenizer.TestingFrameTokenizer;
 import com.kassmon.assembly.util.Vars;
@@ -40,7 +40,7 @@ public class FrameMain {
 	private static JTextArea programEditor = new JTextArea();
 	private static JScrollPane programEditorPane = new JScrollPane(programEditor);
 	private static JFileChooser fc = new JFileChooser();
-	private static RunTime runtime = new RunTime();
+	private static Runtime runtime = new Runtime();
 	private static String command = "null";
 	private static TestingFrameTokenizer t = new TestingFrameTokenizer();
 	
@@ -168,20 +168,20 @@ public class FrameMain {
 				token = t.getNextToken();
 				if (token.getToken().equals("-v")) {
 					try {
-						runtime.RunProgram(true);
+						runtime.runProgram(true);
 					} catch (RuntimeException e) {
 						addTextToConsole(e.getMessage());
 					}
 				}else{
 					try {
-						runtime.RunProgram(false);
+						runtime.runProgram(false);
 					} catch (RuntimeException e) {
 						addTextToConsole(e.getMessage());
 					}
 				}
 			}else {
 				try {
-					runtime.RunProgram(false);
+					runtime.runProgram(false);
 				} catch (RuntimeException e) {
 					addTextToConsole(e.getMessage());
 				}

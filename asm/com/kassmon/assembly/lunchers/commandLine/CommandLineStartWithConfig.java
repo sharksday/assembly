@@ -1,30 +1,25 @@
 package com.kassmon.assembly.lunchers.commandLine;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
-import com.kassmon.assembly.externalBuss.Ram;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.externalBuss.*;
+import com.kassmon.assembly.logic.Runtime;
 import com.kassmon.assembly.program.Program;
-import com.kassmon.assembly.tokenizer.CommandTokenizer;
-import com.kassmon.assembly.tokenizer.ConfigTestTokenizer;
+import com.kassmon.assembly.tokenizer.*;
 import com.kassmon.assembly.util.Vars;
 import com.kassmon.library.tokenizers.Token;
 
 public class CommandLineStartWithConfig {
 	
-	private static RunTime runtime = new RunTime();
+	private static Runtime runtime = new Runtime();
 	
 	public static void main(String[] args) {
 		com.kassmon.assembly.io.OutputControler.setTextMode(true);
 		getProgram(new File(args[0]));
 		try {
-			runtime.RunProgram(false);
+			runtime.runProgram(false);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			System.exit(0);
@@ -49,11 +44,13 @@ public class CommandLineStartWithConfig {
 		while (tokenizer.hasNextToken()) {
 			Token busItem = tokenizer.getNextToken();
 			Token commandADR = tokenizer.getNextToken();
-			Token dataAdr = tokenizer.getNextToken();
+			Token dataADR = tokenizer.getNextToken();
 			switch (busItem.getToken()) {
 				case "ram":
+					runtime.addBusItem(new Ram(Integer.parseInt(commandADR.getToken()), Integer.parseInt(dataADR.getToken())));
 					break;
 				case "stack":
+					runtime.addBusItem(new Stack(Integer.parseInt(commandADR.getToken()), Integer.parseInt(dataADR.getToken())));
 					break;
 			}
 		}

@@ -8,7 +8,8 @@ import com.kassmon.assembly.externalBuss.ExternalBusItem;
 import com.kassmon.assembly.io.OutputControler;
 import com.kassmon.assembly.program.Program;
 
-public class RunTime {
+public class Runtime implements IRuntime {
+	
 	private Program program;
 	//memory
 	private int a[];
@@ -17,126 +18,116 @@ public class RunTime {
 	//External items
 	private ArrayList<ExternalBusItem> bus;
 	//flags
-	private boolean jez = false;
-	private boolean jnz = false;
-	private boolean jgz = false;
-	private boolean jlz = false;
+	private int dataFlags = 0;
 	private boolean reportAfterCommand;
 	
-	public RunTime() {
+	public Runtime() {
 		a = new int[16];
 		stack = new Stack<>();
 		bus = new ArrayList<>();
 	}
 	
+	@Override
 	public Program getProgram() {
 		return program;
 	}
 	
+	@Override
 	public void setProgram(Program program) {
 		this.program = program;
 	}
 	
-	public int getA(int i) {
-		return a[i];
+	@Override
+	public int SiseOfA() {
+		return a.length;
 	}
 	
-	public void setA(int i, int a) {
-		this.a[i] = a;
+	@Override
+	public void setA(int adr, int value) {
+		this.a[adr] = value;
 	}
 	
-	public int getPc() {
-		return pc;
+	@Override
+	public int getA(int adr) {
+		return a[adr];
 	}
 	
+	@Override
 	public void setPc(int pc) {
 		this.pc = pc;
 	}
 	
-	public boolean isJez() {
-		return jez;
-	}
-
-	public void setJez(boolean jez) {
-		this.jez = jez;
-	}
-
-	public boolean isJnz() {
-		return jnz;
-	}
-
-	public void setJnz(boolean jnz) {
-		this.jnz = jnz;
-	}
-
-	public boolean isJgz() {
-		return jgz;
-	}
-
-	public void setJgz(boolean jgz) {
-		this.jgz = jgz;
-	}
-
-	public boolean isJlz() {
-		return jlz;
-	}
-
-	public void setJlz(boolean jlz) {
-		this.jlz = jlz;
-	}
-
-	public int getALength() {
-		return a.length;
+	@Override
+	public int getPc() {
+		return pc;
 	}
 	
-	public void pushToStack(int i) {
-		this.stack.add(i);
+	@Override
+	public void pushToStack(int value) {
+		this.stack.add(value);
 	}
 	
+	@Override
 	public int popFromStack() {
 		return this.stack.pop();
 	}
 	
+	@Override
 	public void runCommand(int pc) throws RuntimeException {
 		if (program.getProgramLine(pc).isCommand()) {
 			program.getProgramLine(pc).getCommand().run(this);
 		}
 		this.pc++;
 	}
-
-	public void printMem() {
-		OutputControler.output(String.valueOf(pc) + System.lineSeparator());
-		for (Integer i: a) {
-			OutputControler.output(String.valueOf(i) + " ");
-		}
-		OutputControler.output(System.lineSeparator());
-		
-	} 
 	
-	public void addBusItem(ExternalBusItem item) {
-		this.bus.add(item);
-	}
-
-	public ArrayList<ExternalBusItem> getBus() {
-		return bus;
-	}
-	
-	public void RunProgram(boolean reportAfterCommand) throws RuntimeException {
+	@Override
+	public void runProgram(boolean reportAfterCommand) throws RuntimeException {
 		this.reportAfterCommand = reportAfterCommand;
 		while (this.program.getProgramLength() > this.getPc()) {
 			this.runCommand(this.pc);
 			if (this.reportAfterCommand) this.printMem();
 		}
 	}
-
+	
+	@Override
+	public void printMem() {
+		OutputControler.output(String.valueOf(pc) + System.lineSeparator());
+		for (Integer i: a) {
+			OutputControler.output(String.valueOf(i) + " ");
+		}
+		OutputControler.output(System.lineSeparator());
+	}
+	
+	@Override
+	public void addBusItem(ExternalBusItem item) {
+		this.bus.add(item);
+	}
+	
+	@Override
+	public ArrayList<ExternalBusItem> getBus() {
+		return bus;
+	}
+	
+	@Override
 	public boolean isReportAfterCommand() {
 		return reportAfterCommand;
 	}
-
+	
+	@Override
 	public void setReportAfterCommand(boolean reportAfterCommand) {
 		this.reportAfterCommand = reportAfterCommand;
 	}
 	
+	@Override
+	public int getFlags() {
+		return this.dataFlags;
+	}
+	
+	@Override
+	public void setFlags(int flag){
+		this.dataFlags = flag;
+	}
+
 	
 	
 }

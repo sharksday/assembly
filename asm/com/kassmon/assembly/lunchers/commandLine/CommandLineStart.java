@@ -9,7 +9,7 @@ import java.io.IOException;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
 import com.kassmon.assembly.externalBuss.Ram;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.Runtime;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 import com.kassmon.assembly.util.Vars;
@@ -18,14 +18,14 @@ public class CommandLineStart {
 	
 	public static void main(String[] args) {
 		com.kassmon.assembly.io.OutputControler.setTextMode(true);
-		RunTime runtime = new RunTime();
+		Runtime runtime = new Runtime();
 		Program p = getProgram(new File(args[0]));
 		if (p != null) {
 			runtime.setProgram(p);
 			runtime.addBusItem(new Ram(0, 1));
 		}
 		try {
-			runtime.RunProgram(false);
+			runtime.runProgram(false);
 		} catch (RuntimeException e) {
 			e.printStackTrace();
 			System.exit(0);

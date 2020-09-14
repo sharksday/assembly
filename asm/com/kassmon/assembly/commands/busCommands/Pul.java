@@ -5,7 +5,7 @@ import com.kassmon.assembly.exceptions.BusNoOutputExcption;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
 import com.kassmon.assembly.externalBuss.ExternalBusItem;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.IRuntime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
@@ -41,7 +41,7 @@ public class Pul extends Command {
 	
 	
 	@Override
-	public void run(RunTime runtime) throws RuntimeException {
+	public void run(IRuntime runtime) throws RuntimeException {
 		for (ExternalBusItem obj: runtime.getBus()) {
 			try {
 				super.setValue(runtime, a2, obj.pull(super.getValue(runtime, a1)));

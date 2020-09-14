@@ -3,7 +3,7 @@ package com.kassmon.assembly.commands.outputCommands;
 import com.kassmon.assembly.commands.Command;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.IRuntime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
@@ -33,7 +33,7 @@ public class Och extends Command {
 	}
 	
 	@Override
-	public void run(RunTime runtime) throws RuntimeException {
+	public void run(IRuntime runtime) throws RuntimeException {
 		com.kassmon.assembly.io.OutputControler.output(String.valueOf((char) super.getValue(runtime, a1)));
 	}
 	

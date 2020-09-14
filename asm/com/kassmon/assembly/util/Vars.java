@@ -1,6 +1,5 @@
 package com.kassmon.assembly.util;
 
-import com.kassmon.assembly.commands.branchingCommands.*;
 import com.kassmon.assembly.commands.busCommands.*;
 import com.kassmon.assembly.commands.controlCommands.*;
 import com.kassmon.assembly.commands.mathCommands.*;
@@ -26,11 +25,7 @@ public class Vars {
 		new Or(),
 		new Xor(),
 		//branching
-		new Cmp(),
-		new Jez(),
-		new Jnz(),
-		new Jgz(),
-		new Jlz(),
+		
 		//buss
 		new Psh(),
 		new Pul(),

@@ -4,7 +4,7 @@ import com.kassmon.assembly.commands.Command;
 import com.kassmon.assembly.exceptions.ParcerException;
 import com.kassmon.assembly.exceptions.RuntimeException;
 import com.kassmon.assembly.externalBuss.ExternalBusItem;
-import com.kassmon.assembly.logic.RunTime;
+import com.kassmon.assembly.logic.IRuntime;
 import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
@@ -37,7 +37,7 @@ public class Psh extends Command {
 	}
 	
 	@Override
-	public void run(RunTime runtime) throws RuntimeException {
+	public void run(IRuntime runtime) throws RuntimeException {
 		for (ExternalBusItem obj: runtime.getBus()) {
 			obj.push(super.getValue(runtime, a1), super.getValue(runtime, a2));
 		}
