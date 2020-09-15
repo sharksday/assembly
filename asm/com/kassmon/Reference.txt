@@ -1,43 +1,30 @@
-//memory addresses
-a00	"register 0"
-a01	"register 1"
-a02	"register 2"
-a03	"register 3"
-a04	"register 4"
-a05	"register 5"
-a06	"register 6"
-a07	"register 7"
-a08	"register 8"
-a09	"register 9"
-a10	"register 10"
-a11	"register 11"
-a12	"register 12"
-a13	"register 13"
-a14	"register 14"
-a15	"register 15"
+//key
+value "A number or char. Numbers can be base2(0b...), base10(...), or base16(0x...)"
+memary address "A memary address that holds a number"
+label "A line in the program that is marked as a label using an exclamation mark"
+mask "a value to get a flag"
+true "1"
+flase "0"
+flag "data that holds true or flase info used for branching commands"
 
 //commands
 nop
 mov (value or memory address) (memory address)
 
-add (value or memory address)
-sub (value or memory address)
-mul (value or memory address)
-div (value or memory address)
-mod (value or memory address)
+add (value or memory address) (value or memory address) (memory address)
+sub (value or memory address) (value or memory address) (memory address)
+mul (value or memory address) (value or memory address) (memory address)
+div (value or memory address) (value or memory address) (memory address)
+mod (value or memory address) (value or memory address) (memory address)
 
-not (value or memory address)
-and (value or memory address)
-or  (value or memory address)
-xor (value or memory address)
+not (memory address)
+and (value or memory address) (value or memory address) (memory address)
+or  (value or memory address) (value or memory address) (memory address)
+xor (value or memory address) (value or memory address) (memory address)
 
 cmp (value or memory address)
+bjp (mask) (true or false) (label)
 
-jmp (label)
-jez (label)
-jlz (label)
-jgz (label)
-jnz (label)
 
 jsr (label)
 rsr
@@ -57,31 +44,4 @@ ram
 1	set loc
 2	set data to loc
 3	loc loc to data
-
-textDisplay
-
-0	
-1	set column
-2	set row
-3	clear cell
-4	set cell
-5	next column
-6	previous column
-7	next row
-8	previous row
-9	shift rows up
-10	shift rows down
-11	shift column left
-12	shift column right
-13	
-14	
-15	print to console
-
-
-
-
-
-
-
-
 

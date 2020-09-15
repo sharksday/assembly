@@ -96,6 +96,8 @@ public class Runtime implements IRuntime {
 			OutputControler.output(String.valueOf(i) + " ");
 		}
 		OutputControler.output(System.lineSeparator());
+		OutputControler.output("0b" +Integer.toBinaryString(this.dataFlags));
+		OutputControler.output(System.lineSeparator());
 	}
 	
 	@Override
