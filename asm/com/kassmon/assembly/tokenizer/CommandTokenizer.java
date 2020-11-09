@@ -32,6 +32,8 @@ public class CommandTokenizer extends com.kassmon.library.tokenizers.Tokenizer {
 		super.addPattern(Pattern.compile("^(![a-zA-Z]+\\b)"), "label");
 		super.addPattern(Pattern.compile("^([a-zA-Z]+\\b)"), "label");
 		super.addPattern(Pattern.compile("^(\\/\\/.*\\/\\/)"), "comment");
+		super.addPattern(Pattern.compile("^(TRUE\\b)"), "boolean");
+		super.addPattern(Pattern.compile("^(FALSE\\b)"), "boolean");
 		// super.addPattern(Pattern.compile("^([])"), "");
 	}
 	

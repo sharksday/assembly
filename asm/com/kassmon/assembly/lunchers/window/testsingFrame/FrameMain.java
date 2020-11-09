@@ -55,6 +55,7 @@ public class FrameMain {
 		consoleOutput.setEditable(false);
 		consoleInput.setSize(350, 20);
 		consoleInput.setLocation(10, 540);
+		consoleOutput.setLineWrap(true);
 		programEditorPane.setSize(350, 550);
 		programEditorPane.setLocation(370, 10);
 		programEditor.setEditable(true);
@@ -298,18 +299,17 @@ public class FrameMain {
 	private static void help() {
 		if (!t.hasNextToken()) {
 			addTextToConsole("to show more help on a command use \"help (command)\"");
-			addTextToConsole("\"open\" open a file of you choice.");
-			addTextToConsole("\"save\" saves the program to the currently open file.");
-			addTextToConsole("\"run\" runs the program displayed in the program editor.");
-			addTextToConsole("\"exit\" closes the program.");
-			addTextToConsole("\"clear\" alows the user to clear the console or the program editor.");
-			addTextToConsole("\"bus\" prefix for all bus commands.");
+			addTextToConsole("\"open\" open a file of you choice");
+			addTextToConsole("\"save\" saves the program to the currently open file");
+			addTextToConsole("\"run\" runs the program displayed in the program editor");
+			addTextToConsole("\"exit\" closes the program");
+			addTextToConsole("\"clear\" alows the user to clear the console or the program editor");
+			addTextToConsole("\"bus\" prefix for all bus commands");
 		}else {
 			Token token = t.getNextToken();
 			if (token.getType().equals("command")) {
 				switch (token.getToken()) {
 				case "run":
-					
 					break;
 				case "open":
 					break;

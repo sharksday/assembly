@@ -35,4 +35,7 @@ public interface IRuntime {
 	int getFlags();
 	void setFlags(int flag);
 	
+	int getUserFlags();
+	void setUserFlags(int userFlags);
+	
 }

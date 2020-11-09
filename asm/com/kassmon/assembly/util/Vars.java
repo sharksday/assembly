@@ -27,6 +27,11 @@ public class Vars {
 		new Xor(),
 		//branching
 		new Cmp(),
+		new Bjp(),
+		new Jez(),
+		new Jgz(),
+		new Jlz(),
+		new Jnz(),
 		//buss
 		new Psh(),
 		new Pul(),

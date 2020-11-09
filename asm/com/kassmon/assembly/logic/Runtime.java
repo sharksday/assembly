@@ -19,6 +19,7 @@ public class Runtime implements IRuntime {
 	private ArrayList<ExternalBusItem> bus;
 	//flags
 	private int dataFlags = 0;
+	private int userFlags = 0;
 	private boolean reportAfterCommand;
 	
 	public Runtime() {
@@ -128,6 +129,16 @@ public class Runtime implements IRuntime {
 	@Override
 	public void setFlags(int flag){
 		this.dataFlags = flag;
+	}
+
+	@Override
+	public int getUserFlags() {
+		return this.userFlags;
+	}
+
+	@Override
+	public void setUserFlags(int userFlags) {
+		
 	}
 
 	

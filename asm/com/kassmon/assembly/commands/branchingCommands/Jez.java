@@ -8,33 +8,34 @@ import com.kassmon.assembly.program.Argument;
 import com.kassmon.assembly.program.Program;
 import com.kassmon.assembly.tokenizer.CommandTokenizer;
 
-public class Jgz extends Command {
+public class Jez extends Command {
 	
 	@Override
 	public Command parse(CommandTokenizer t) throws ParcerException {
 		Argument a1 = super.getArg(t);
-		if (a1 == null) throw new ParcerException("jgz : argument error : null argument");
-		if (!a1.isLabel()) throw new ParcerException("jgz : argument error : illegal argument type");
-		return new Jgz(a1);
+		if (a1 == null) throw new ParcerException("jez : argument error : null argument");
+		if (!a1.isLabel()) throw new ParcerException("jez : argument error : illegal argument type");
+		return new Jez(a1);
 	}
 	
 	@Override
 	public String getPattern() {
-		return "jgz";
+		return "jez";
 	}
 	
 	Argument a1;
 	
-	public Jgz() {
+	public Jez() {
+		
 	}
 	
-	public Jgz(Argument a1) {
+	public Jez(Argument a1) {
 		this.a1 = a1;
 	}
 	
 	@Override
 	public void run(IRuntime runtime) throws RuntimeException {
-		if ((runtime.getFlags() & 0b00000010) == 0) {
+		if ((runtime.getFlags() & 0b00000001) == 0) {
 			Program program = runtime.getProgram();
 			for (int i = 0; i < program.getProgramLength(); i++) {
 				if (!program.getProgramLine(i).isCommand()) {
