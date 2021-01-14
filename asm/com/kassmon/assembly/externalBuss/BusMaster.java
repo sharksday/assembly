@@ -16,7 +16,13 @@ public class BusMaster {
 		return busItems;
 	}
 	
+	public void setBusItems(ArrayList<ExternalBusItem> array) {
+		this.busItems = array;
+	}
 	
+	public void addBusItem(ExternalBusItem obj) {
+		this.busItems.add(obj);
+	}
 	
 	public void push(int adr, int value) {
 		for (ExternalBusItem obj: busItems) obj.push(adr, value);
