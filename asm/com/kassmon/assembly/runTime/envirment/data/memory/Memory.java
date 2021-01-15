@@ -2,6 +2,8 @@ package com.kassmon.assembly.runTime.envirment.data.memory;
 
 import java.util.Stack;
 
+import com.kassmon.assembly.externalBuss.BusMaster;
+
 public class Memory {
 	
 	private int a[];
@@ -12,9 +14,12 @@ public class Memory {
 	
 	private Stack<Integer> stack;
 	
-	public Memory() {
+	private BusMaster bus;
+	
+	public Memory(BusMaster busMaster) {
 		a = new int[16];
 		stack = new Stack<>();
+		this.bus = busMaster;
 	}
 
 	public int getA(int loc) {
@@ -59,6 +64,16 @@ public class Memory {
 
 	public void setPc(int pc) {
 		this.pc = pc;
+	}
+
+	
+	public BusMaster getBus() {
+		return bus;
+	}
+	
+
+	public void setBus(BusMaster bus) {
+		this.bus = bus;
 	}
 	
 	

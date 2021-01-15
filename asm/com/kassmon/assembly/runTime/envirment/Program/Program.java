@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kassmon.old.assembly.logic.program.ProgramLine;
 
 public class Program {
+	
 	private static ArrayList<ProgramLine> programLines = new ArrayList<>();;
 	
 	public Program() {

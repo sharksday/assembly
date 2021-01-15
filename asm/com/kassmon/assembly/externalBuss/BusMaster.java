@@ -28,14 +28,20 @@ public class BusMaster {
 		for (ExternalBusItem obj: busItems) obj.push(adr, value);
 	}
 	
-	public void pull(int adr) throws BusNoOutputExcption {
-		for (ExternalBusItem obj: busItems) obj.pull(adr);
+	public int pull(int adr)  {
+		int a = 0;
+		for (ExternalBusItem obj: busItems) {
+			try {
+				a = obj.pull(adr);
+			} catch (BusNoOutputExcption e) {
+				
+			}
+		}
+		return a;
 	}
 	
-	public void clock() throws BusNoOutputExcption {
+	public void clock() {
 		for (ExternalBusItem obj: busItems) obj.clock();
 	}
-	
-	
 	
 }
