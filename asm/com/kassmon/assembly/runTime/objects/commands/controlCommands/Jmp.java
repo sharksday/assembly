@@ -17,6 +17,7 @@ public class Jmp extends Command {
 	
 	@Override
 	public void run(Memory memory, Flags flags) throws RuntimeException {
+		p = memory.getProgram();
 		for (int i = 0; i < p.getProgramLength(); i++) {
 			if (!p.getProgramLine(i).isCommand()) {
 				if (p.getProgramLine(i).getLabel().equals(a1.getValue())) memory.setPc(i);

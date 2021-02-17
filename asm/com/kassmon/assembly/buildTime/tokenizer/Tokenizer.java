@@ -14,23 +14,24 @@ public class Tokenizer {
 	
 	public Tokenizer (String[] commandList) {
 		
+		tokenData = new ArrayList<>();
+		
 		for (String command: commandList) {
 			tokenData.add(new TokenData("^(" + command + "\\b)", TokenType.COMMAND));
+			//System.out.println(command);
 		}
-		
+		//System.out.println();
 		tokenData.add(new TokenData("^(null\\b)", MEM));
 		tokenData.add(new TokenData("^(a[0-9]+\\b)", MEM));
 		tokenData.add(new TokenData("(0x[0-9abcdef]+\\b)", HEX));
-		tokenData.add(new TokenData("(0b[01]+\\b", BINARY));
-		tokenData.add(new TokenData("^(-[a-zA-Z]\\b)", CHAR));
+		tokenData.add(new TokenData("(0b[01]+\\b)", BINARY));
+		tokenData.add(new TokenData("^(|[a-zA-Z]\\b)", CHAR));
 		tokenData.add(new TokenData("^([0-9]+\\b)", INT));
-		tokenData.add(new TokenData("^(![a-zA-Z]+\\b", LABEL));
-		tokenData.add(new TokenData("^([a-zA-Z]+\\b", LABEL));
+		tokenData.add(new TokenData("^(![a-zA-Z]+\\b)", LABEL));
+		tokenData.add(new TokenData("^([a-zA-Z]+\\b)", LABEL));
 		tokenData.add(new TokenData("^(\\/\\/.*\\/\\/)", COMMENT));
 		tokenData.add(new TokenData("^(true\\b)", BOOLEAN));
 		tokenData.add(new TokenData("^(false\\b)", BOOLEAN));
-		
-		
 		
 	}
 	
@@ -51,12 +52,17 @@ public class Tokenizer {
 					String obj = matcher.group().trim();
 					input = matcher.replaceFirst("");
 					return (new Token(obj, data.getTokenType()));
-				} else {
-					throw new TokenizerExcption("invalid input");
 				}
 			}
+			throw new TokenizerExcption("token error");
 		}
 		throw new TokenizerExcption("no Token");
 	}
+
+	public String getInput() {
+		return input;
+	}
+	
+	
 	
 }
