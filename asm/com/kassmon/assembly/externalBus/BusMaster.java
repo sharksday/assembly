@@ -1,4 +1,4 @@
-package com.kassmon.assembly.externalBuss;
+package com.kassmon.assembly.externalBus;
 
 import java.util.ArrayList;
 

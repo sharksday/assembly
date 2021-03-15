@@ -1,7 +1,7 @@
 package com.kassmon.assembly.runTime;
 
 import com.kassmon.assembly.exceptions.RuntimeException;
-import com.kassmon.assembly.externalBuss.BusMaster;
+import com.kassmon.assembly.externalBus.BusMaster;
 import com.kassmon.assembly.runTime.envirment.Program.Program;
 import com.kassmon.assembly.runTime.envirment.data.memory.*;
 

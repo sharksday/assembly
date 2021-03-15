@@ -2,7 +2,7 @@ package com.kassmon.assembly.runTime.envirment.data.memory;
 
 import java.util.Stack;
 
-import com.kassmon.assembly.externalBuss.BusMaster;
+import com.kassmon.assembly.externalBus.BusMaster;
 import com.kassmon.assembly.runTime.envirment.Program.Program;
 
 public class Memory {
